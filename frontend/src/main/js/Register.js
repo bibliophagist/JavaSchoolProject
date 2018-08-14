@@ -29,13 +29,22 @@ Register = Class.extend({
                     type: 'POST',
                     url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "register",
                     success: function (data) {
-                        document.getElementById("registerModal").style.display = "none";
-                        document.getElementById('body').style.overflow = 'auto';
-                        document.getElementById("loginButton").style.display = "none";
-                        document.getElementById("registerButton").style.display = "none";
-                        document.getElementById("loginedInfo").innerHTML = "Login: <b>" + login + "</b>";
-                        document.getElementById("signOut").style.display = "block";
-                        document.getElementById("loginedInfo").style.display = "inline";
+                        if (data.responseText === "Success") {
+                            document.getElementById("registerModal").style.display = "none";
+                            document.getElementById('body').style.overflow = 'auto';
+                            document.getElementById("loginButton").style.display = "none";
+                            document.getElementById("registerButton").style.display = "none";
+                            document.getElementById("loginedInfo").innerHTML = "Login: <b>" + login + "</b>";
+                            document.getElementById("signOut").style.display = "block";
+                            document.getElementById("loginedInfo").style.display = "inline";
+                        }
+                        else {
+                            document.getElementById("registerError").innerHTML = "<b>" + data.responseText + "</b>";
+                            document.getElementById("registerRule").style.color = "black";
+                            document.getElementById("registerError").style.display = "inline";
+                            document.getElementById("registerPasswordInput").value = "";
+                            document.getElementById("registerPasswordRepeatInput").value = "";
+                        }
                     },
                     error: function (data) {
                         document.getElementById("registerError").innerHTML = "<b>" + data.responseText + "</b>";
