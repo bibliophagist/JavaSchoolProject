@@ -4,13 +4,16 @@ Register = Class.extend({
 
     register: function () {
         var login = document
-            .getElementById("registerLoginInput")
+            .getElementById("registerInputEmail")
             .value;
         var password = document
-            .getElementById("registerPasswordInput")
+            .getElementById("registerInputPassword")
             .value;
         var passwordRepeat = document
-            .getElementById("registerPasswordRepeatInput")
+            .getElementById("registerInputPasswordRepeat")
+            .value;
+        var passport = document
+            .getElementById("registerInputPassport")
             .value;
         if ((password.length > 49) || (password.length < 6) || (login.length > 49) || (login.length < 6)) {
             document.getElementById("registerRule").style.color = "red";
@@ -30,13 +33,7 @@ Register = Class.extend({
                     url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "register",
                     success: function (data) {
                         if (data.responseText === "Success") {
-                            document.getElementById("registerModal").style.display = "none";
-                            document.getElementById('body').style.overflow = 'auto';
-                            document.getElementById("loginButton").style.display = "none";
-                            document.getElementById("registerButton").style.display = "none";
                             document.getElementById("loginedInfo").innerHTML = "Login: <b>" + login + "</b>";
-                            document.getElementById("signOut").style.display = "block";
-                            document.getElementById("loginedInfo").style.display = "inline";
                         }
                         else {
                             document.getElementById("registerError").innerHTML = "<b>" + data.responseText + "</b>";

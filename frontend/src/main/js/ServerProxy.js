@@ -1,5 +1,6 @@
 ServerProxy = Class.extend({
 
+    username: null,
     bankServerUrl: "localhost:8080",
     socket: null,
 

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Cover Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/cover.css" rel="stylesheet">
+
+</head>
+
+<body onload="newEngine.load()" id="body">
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Cover</h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="#">Features</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">Cover your page.</h1>
+                <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+                </p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+                    Sign in
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                    Register
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Please sign in</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-signin">
+                                    <label for="loginInputEmail" class="sr-only">Email address</label>
+                                    <input type="email" id="loginInputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                    <label for="loginInputPassword" class="sr-only">Password</label>
+                                    <input type="password" id="loginInputPassword" class="form-control" placeholder="Password" required>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="remember-me"> Remember me
+                                        </label>
+                                    </div>
+                                    <p id="signInError" style="color: red; size: 14px; display: none; "></p>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" href="index.html" onclick="var login = new Login; login.login();" class="btn btn-primary">Sign in</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Please register</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-signin">
+                                    <label for="registerInputEmail" class="sr-only">Email address</label>
+                                    <input type="email" id="registerInputEmail" class="form-control" placeholder="Email address" required autofocus>
+                                    <label for="registerInputPassport" class="sr-only">Passport number</label>
+                                    <input type="password" id="registerInputPassport" class="form-control" placeholder="Passport number" required>
+                                    <label for="registerInputPassword" class="sr-only">Password</label>
+                                    <input type="password" id="registerInputPassword" class="form-control" placeholder="Password" required>
+                                    <label for="registerInputPasswordRepeat" class="sr-only">Repeat password</label>
+                                    <input type="password" id="registerInputPasswordRepeat" class="form-control" placeholder="Repeat password" required>
+                                    <div class="text-left checkbox">
+                                        <label>
+                                            <input type="checkbox" value="remember-me"> Remember me
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <a type="button"  href="index.html" onclick="var register = new Register; register.register();" class="btn btn-primary"> Register </a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+<script type="text/javascript" src="js/Login.js"></script>
+<script type="text/javascript" src="js/Register.js"></script>
+<script type="text/javascript" src="js/ServerProxy.js"></script>
+<script type="text/javascript" src="js/Engine.js"></script>
+<script type="text/javascript" src="js/InputEngine.js"></script>
+</body>
+</html>
