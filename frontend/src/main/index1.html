@@ -1,0 +1,83 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>TeamSevenBank</title>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/core.js"></script>
+    <script type="text/javascript" src="js/Login.js"></script>
+    <script type="text/javascript" src="js/Register.js"></script>
+    <script type="text/javascript" src="js/SignOut.js"></script>
+    <script type="text/javascript" src="js/ServerProxy.js"></script>
+    <script type="text/javascript" src="js/Engine.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body onload="newEngine.load()" id="body">
+
+
+<div id="loginModal" class="modal">
+        <span onclick="document.getElementById('loginModal').style.display='none';
+                       document.getElementById('body').style.overflow='auto';" class="close" title="Close Modal">x</span>
+    <form class="modal-content animate" style="background-color: #efe9db">
+
+        <div class="container">
+            <label><b>Username</b></label>
+            <input id="loginInputEmail" type="text" placeholder="Enter Username" name="uname" required>
+
+            <label><b>Password</b></label>
+            <input id="loginInputPassword" type="password" placeholder="Enter Password" name="psw" required>
+            <p id="loginError" style="color: red; size: 14px; display: none; "></p>
+            <div class="container" style="background-color:#dcd6c6; width: auto">
+                <button type="button" onclick="var login = new Login; login.login();" class="loginbtn">Login</button>
+                <button type="button" onclick="document.getElementById('loginModal').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="registerModal" class="modal">
+      <span onclick="document.getElementById('registerModal').style.display='none';
+                     document.getElementById('body').style.overflow='auto';" class="close" title="Close Modal">x</span>
+    <form class="modal-content animate" style="background-color: #efe9db">
+        <div class="container">
+            <label><b>Login</b></label>
+            <input id="registerLoginInput" type="text" placeholder="Enter Login" name="login" required>
+
+            <label><b>Password</b></label>
+            <input id="registerPasswordInput" type="password" placeholder="Enter Password" name="psw" required>
+
+            <label><b>Repeat Password</b></label>
+            <input id="registerPasswordRepeatInput"type="password" placeholder="Repeat Password" name="psw-repeat" required>
+
+            <p id="registerRule" style = "size: 14px;"><b>Username and password should be between 5 and 50 symbols</b></p>
+            <p id="registerError" style = "size: 14px; color: red; display: none;"><b>Passwords should match</b></p>
+
+            <div class="container" style="background-color:#dcd6c6; width: auto">
+                <button type="button" onclick="document.getElementById('registerModal').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="button" onclick="var register = new Register; register.register();" class="loginbtn">Sign Up</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="js/CloseIfOutside.js"></script>
+
+<div class="navbar">
+    <button id = "loginButton" onclick="document.getElementById('loginModal').style.display='block';
+                                            document.getElementById('body').style.overflow = 'hidden';" style="width:auto; margin: 10px; float: right;">Login</button>
+    <button id = "registerButton" onclick="document.getElementById('registerModal').style.display='block';
+                                            document.getElementById('body').style.overflow = 'hidden';" style="width:auto; margin: 10px; float: right;">Sign Up</button>
+    <p id="loginedInfo" class="logininfo"></p>
+    <button id = "signOut" onclick="var signOut = new SignOut; signOut.signOut();" style = "display: none;" class="signoutbtn">Sign out</button>
+</div>
+<div class="container">
+    <div class="page-header">
+        <h1>JSSB</h1>
+    </div>
+</div>
+</body>
+</html>

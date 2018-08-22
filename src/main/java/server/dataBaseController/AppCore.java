@@ -11,8 +11,8 @@ public class AppCore {
 
     private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String DB_URL = "jdbc:mysql://localhost:3306/sberdata";
-    private final String DB_USERNAME = "senex";
-    private final String DB_PASSWORD = "sbersql";
+    private final String DB_USERNAME = "root";
+    private final String DB_PASSWORD = "mysql";
 
     public void handleRequest(Request req) throws NoSuchRequestException {
         if (req == null) {
@@ -78,9 +78,9 @@ public class AppCore {
         }
     }
 
-    private void createAcc(Connection conn, Request req) throws SQLException {
-        if (req.getAccTitle() == null) {
-            ServiceDB.addAccount(conn, req.getUsername(), req.getMoney());
+        private void createAcc(Connection conn, Request req) throws SQLException {
+            if (req.getAccTitle() == null) {
+                ServiceDB.addAccount(conn, req.getUsername(), req.getMoney());
         } else {
             ServiceDB.addAccount(conn, req.getUsername(), req.getAccTitle(), req.getMoney());
         }
