@@ -1,4 +1,4 @@
-ChekBalance = Class.extend({
+CheckBalance = Class.extend({
 
     checkBalance: function () {
         $.ajax({
@@ -9,9 +9,12 @@ ChekBalance = Class.extend({
             dataType: 'text',
             type: 'POST',
             url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "checkBalance",
+            //TODO rework with boolean field
             success: function (data) {
                 if (data.responseText === "Success") {
-
+                    document.getElementById("ModalTitle").innerHTML="Current balance";
+                    document.getElementById("ModalMessage").innerHTML = data.responseText;
+                    $('#Modal').modal('show');
                 }
                 else {
                     document.getElementById("checkBalanceError").innerHTML = "<b>" + data.responseText + "</b>";

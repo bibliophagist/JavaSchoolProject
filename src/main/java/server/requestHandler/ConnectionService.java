@@ -53,18 +53,19 @@ public class ConnectionService {
     }
 
     @RequestMapping(
-            path = "removeAcc",
+            path = "deleteAccount",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> removeAcc(@RequestParam("login") String login,
+    public ResponseEntity<String> removeAcc(@RequestParam("account") String account,
                                             @RequestParam("password") String password) {
-        return requestResponse(new Request(RequestType.REMOVE_ACC, login, password));
+        //TODO account is not a login!
+        return requestResponse(new Request(RequestType.REMOVE_ACC, account, password));
     }
 
     @RequestMapping(
-            path = "createAcc",
+            path = "createAccount",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
@@ -75,7 +76,7 @@ public class ConnectionService {
     }
 
     @RequestMapping(
-            path = "removeUser",
+            path = "deleteUser",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
@@ -83,7 +84,7 @@ public class ConnectionService {
     public ResponseEntity<String> removeUSer(@RequestParam("login") String login,
                                              @RequestParam("password") String password) {
         //TODO remove null
-        return requestResponse(new Request(RequestType.CHECK_BALANCE, login, password));
+        return requestResponse(new Request(RequestType.REMOVE_USER, login, password));
     }
 
     @RequestMapping(
@@ -103,7 +104,7 @@ public class ConnectionService {
             return new ResponseEntity<>(request.getReqMessage(), headers, HttpStatus.OK);
         } catch (NoSuchRequestException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(request.getReqError().toString(), headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
         }
     }
 }

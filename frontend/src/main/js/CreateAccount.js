@@ -1,33 +1,28 @@
-MoneyTransfer = Class.extend({
-
-    moneyTransfer: function () {
-        var account = document
+CreateAccount = Class.extend({
+    createAccount: function () {
+        var login = document
             .getElementById("accountInput")
-            .value;
-        var moneyAmount = document
-            .getElementById("moneyAmountInput")
             .value;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
-                "account": account,
-                "moneyAmount": moneyAmount,
-                "login": "",
-                "password": ""
+                "login": login
             },
             dataType: 'text',
             type: 'POST',
-            url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "moneyTransfer",
+            url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "createAccount",
             //TODO rework
             success: function (data) {
                 if (data.responseText === "Success") {
-
+                    document.getElementById("ModalTitle").innerHTML="Create Account";
+                    document.getElementById("ModalMessage").innerHTML = data.responseText;
+                    $('#Modal').modal('show');
                 }
                 else {
                     document.getElementById("moneyTransferError").innerHTML = "<b>" + data.responseText + "</b>";
                     document.getElementById("moneyTransferError").style.display = "inline";
                     document.getElementById("accountInput").value = "";
-                    document.getElementById("moneyAmount").value="";
+                    document.getElementById("moneyAmount").value = "";
                 }
             },
             error: function (data) {
@@ -38,5 +33,4 @@ MoneyTransfer = Class.extend({
         })
 
     }
-
 });
