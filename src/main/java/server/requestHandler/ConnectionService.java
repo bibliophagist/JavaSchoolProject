@@ -97,7 +97,7 @@ public class ConnectionService {
         return requestResponse(new Request(RequestType.REGISTER, login, password));
     }
 
-    private final ResponseEntity<String> requestResponse(Request request) {
+    private ResponseEntity<String> requestResponse(Request request) {
         try {
             appCore.handleRequest(request);
             return new ResponseEntity<>(request.getReqMessage(), headers, HttpStatus.OK);
