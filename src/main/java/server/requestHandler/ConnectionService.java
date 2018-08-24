@@ -1,5 +1,6 @@
 package server.requestHandler;
 
+import com.google.gson.Gson;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ public class ConnectionService {
 
     private static final HttpHeaders headers = new HttpHeaders();
     private final AppCore appCore = new AppCore();
+    private final Gson gson=new Gson();
 
     @RequestMapping(
             path = "login",
@@ -101,7 +103,7 @@ public class ConnectionService {
     private ResponseEntity<String> requestResponse(Request request) {
         try {
             appCore.handleRequest(request);
-            return new ResponseEntity<>(request.getReqMessage(), headers, HttpStatus.OK);
+            return new ResponseEntity<>(gson.toJson(request), headers, HttpStatus.OK);
         } catch (NoSuchRequestException e) {
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);

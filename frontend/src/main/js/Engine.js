@@ -1,18 +1,16 @@
 Engine = Class.extend({
 
-    serverProxy: null,
+    username: null,
+    bankServerUrl: "localhost:8080",
 
     load: function() {
-        this.serverProxy = new ServerProxy();
-        //newEngine.serverProxy.connectToBankServer();
     },
 
     getLogin: function () {
-        return newEngine.serverProxy.username;
+        return newEngine.username;
     },
 
     restart: function() {
-        newEngine.serverProxy.connectToBankServer();
     },
 
 });

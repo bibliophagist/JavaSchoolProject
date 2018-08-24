@@ -1,10 +1,10 @@
 MoneyTransfer = Class.extend({
 
     moneyTransfer: function () {
-        var account = document
+        let account = document
             .getElementById("accountInput")
             .value;
-        var moneyAmount = document
+        let moneyAmount = document
             .getElementById("moneyAmountInput")
             .value;
         $.ajax({
@@ -17,14 +17,16 @@ MoneyTransfer = Class.extend({
             },
             dataType: 'text',
             type: 'POST',
-            url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "moneyTransfer",
+            url: "http://" + newEngine.bankServerUrl + "/" + "moneyTransfer",
             //TODO rework
             success: function (data) {
-                if (data.responseText === "Success") {
+                let request = JSON.parse(data);
+                console.log(request);
+                if (request.success === true) {
 
                 }
                 else {
-                    document.getElementById("moneyTransferError").innerHTML = "<b>" + data.responseText + "</b>";
+                    document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";
                     document.getElementById("moneyTransferError").style.display = "inline";
                     document.getElementById("accountInput").value = "";
                     document.getElementById("moneyAmount").value="";

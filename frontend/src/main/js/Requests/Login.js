@@ -1,10 +1,10 @@
 Login = Class.extend({
 
     login: function () {
-        var login = document
+        let login = document
             .getElementById("loginInputEmail")
             .value;
-        var password = document
+        let password = document
             .getElementById("loginInputPassword")
             .value;
         $.ajax({
@@ -15,14 +15,16 @@ Login = Class.extend({
             },
             dataType: 'text',
             type: 'POST',
-            url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "login",
+            url: "http://" + newEngine.bankServerUrl + "/" + "login",
             success: function (data) {
-                if (data.responseText === "Success") {
-                    newEngine.serverProxy.username = login;
+                let request = JSON.parse(data);
+                console.log(request);
+                if (request.success === true) {
+                    newEngine.username = login;
                     document.getElementById("loginedInfo").innerHTML = "Login: <b>" + login + "</b>";
                 }
                 else {
-                    document.getElementById("loginError").innerHTML = "<b>" + data.responseText + "</b>";
+                    document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";
                     document.getElementById("loginError").style.display = "inline";
                     document.getElementById("loginPassword").value = "";
                 }

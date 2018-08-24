@@ -1,9 +1,9 @@
 DeleteUser = Class.extend({
     deleteUser: function () {
-        var login = document
+        let login = document
             .getElementById("loginInput")
             .value;
-        var password = document
+        let password = document
             .getElementById("passwordInput")
             .value;
         $.ajax({
@@ -14,16 +14,18 @@ DeleteUser = Class.extend({
             },
             dataType: 'text',
             type: 'POST',
-            url: "http://" + newEngine.serverProxy.bankServerUrl + "/" + "deleteUser",
-            //TODO rework
+            url: "http://" + newEngine.bankServerUrl + "/" + "deleteUser",
+            //TODO after success remove login from cookies?
             success: function (data) {
-                if (data.responseText === "Success") {
+                let request = JSON.parse(data);
+                console.log(request);
+                if (request.success === true) {
                     document.getElementById("ModalTitle").innerHTML="Delete User";
                     document.getElementById("ModalMessage").innerHTML = data.responseText;
                     $('#Modal').modal('show');
                 }
                 else {
-                    document.getElementById("moneyTransferError").innerHTML = "<b>" + data.responseText + "</b>";
+                    document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";
                     document.getElementById("moneyTransferError").style.display = "inline";
                     document.getElementById("accountInput").value = "";
                     document.getElementById("moneyAmount").value = "";

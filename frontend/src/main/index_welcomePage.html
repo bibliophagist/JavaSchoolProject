@@ -58,17 +58,17 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form class="form-signin">
-                                    <label for="loginInputEmail" class="sr-only">Email address</label>
-                                    <input type="email" id="loginInputEmail" class="form-control" placeholder="Email address" required autofocus>
-                                    <label for="loginInputPassword" class="sr-only">Password</label>
-                                    <input type="password" id="loginInputPassword" class="form-control" placeholder="Password" required>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" value="remember-me"> Remember me
-                                        </label>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="loginInputEmail" class="sr-only">Email address</label>
+                                        <input type="email" class="form-control" id="loginInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                     </div>
-                                    <p id="signInError" style="color: red; size: 14px; display: none; "></p>
+                                    <div class="form-group">
+                                        <label for="loginInputPassword">Password</label>
+                                        <input type="password" class="form-control" id="loginInputPassword" placeholder="Password">
+                                    </div>
+                                    <p id="loginError" style="color: red; size: 14px; display: none; "></p>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal" id="registerModal" tabindex="-1" role="dialog" >
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -89,25 +89,28 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form class="form-signin">
-                                    <label for="registerInputEmail" class="sr-only">Email address</label>
-                                    <input type="email" id="registerInputEmail" class="form-control" placeholder="Email address" required autofocus>
-                                    <label for="registerInputPassport" class="sr-only">Passport number</label>
-                                    <input type="password" id="registerInputPassport" class="form-control" placeholder="Passport number" required>
-                                    <label for="registerInputPassword" class="sr-only">Password</label>
-                                    <input type="password" id="registerInputPassword" class="form-control" placeholder="Password" required>
-                                    <label for="registerInputPasswordRepeat" class="sr-only">Repeat password</label>
-                                    <input type="password" id="registerInputPasswordRepeat" class="form-control" placeholder="Repeat password" required>
-                                    <div class="text-left checkbox">
-                                        <label>
-                                            <input type="checkbox" value="remember-me"> Remember me
-                                        </label>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="registerInputEmail" class="sr-only">Email address</label>
+                                        <input type="email" class="form-control" id="registerInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="registerInputPassport" class="sr-only">Passport number</label>
+                                        <input type="password" id="registerInputPassport" class="form-control" placeholder="Passport number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Password</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="registerInputPasswordRepeat" class="sr-only">Repeat password</label>
+                                        <input type="password" id="registerInputPasswordRepeat" class="form-control" placeholder="Repeat password" required>
+                                    </div>
+                                    <p id="registerRule" style = "size: 14px;"><b>Login and password length should be less than 50</b></p>
+                                    <p id="registerError" style = "size: 14px; color: red; display: none;"><b>Passwords should match</b></p>
+                                    <button type="submit" onclick="let register = new Register; register.register();" class="btn btn-primary">Submit</button>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <a type="button" onclick="let register = new Register; register.register();" class="btn btn-primary"> Register </a>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -131,13 +134,11 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/core.js"></script>
-<script type="text/javascript" src="js/Login.js"></script>
-<script type="text/javascript" src="js/Register.js"></script>
-<script type="text/javascript" src="js/ServerProxy.js"></script>
-<script type="text/javascript" src="js/Engine.js"></script>
-<script type="text/javascript" src="js/InputEngine.js"></script>
+<script src="js/core.js"></script>
+<script src="js/Engine.js"></script>
+<script src="js/Requests/Login.js"></script>
+<script src="js/Requests/Register.js"></script>
+
 </body>
 </html>
