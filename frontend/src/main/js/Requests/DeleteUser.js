@@ -15,14 +15,14 @@ DeleteUser = Class.extend({
             dataType: 'text',
             type: 'POST',
             url: "http://" + newEngine.bankServerUrl + "/" + "deleteUser",
-            //TODO after success remove login from cookies?
             success: function (data) {
                 let request = JSON.parse(data);
                 console.log(request);
                 if (request.success === true) {
                     document.getElementById("ModalTitle").innerHTML="Delete User";
-                    document.getElementById("ModalMessage").innerHTML = data.responseText;
+                    document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
+                    setTimeout(window.location.href = "index.html", 4000);
                 }
                 else {
                     document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";

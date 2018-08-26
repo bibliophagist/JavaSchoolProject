@@ -7,7 +7,7 @@ CheckBalance = Class.extend({
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
-                "login": "",
+                "login": login,
             },
             dataType: 'text',
             type: 'POST',
@@ -17,7 +17,7 @@ CheckBalance = Class.extend({
                 console.log(request);
                 if (request.success === true) {
                     document.getElementById("ModalTitle").innerHTML="Current balance";
-                    document.getElementById("ModalMessage").innerHTML = data.responseText;
+                    document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
                 }
                 else {

@@ -16,7 +16,7 @@ CreateAccount = Class.extend({
                 console.log(request);
                 if (request.success === true) {
                     document.getElementById("ModalTitle").innerHTML="Create Account";
-                    document.getElementById("ModalMessage").innerHTML = data.responseText;
+                    document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
                 }
                 else {
