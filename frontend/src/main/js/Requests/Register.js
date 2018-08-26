@@ -38,6 +38,7 @@ Register = Class.extend({
                         if (request.success === true) {
                             newEngine.username=login;
                             document.getElementById("loginedInfo").innerHTML = "Login: <b>" + login + "</b>";
+                            window.location.href = "index.html";
                         }
                         else {
                             document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";

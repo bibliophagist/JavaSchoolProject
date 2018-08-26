@@ -103,6 +103,7 @@ public class ConnectionService {
     private ResponseEntity<String> requestResponse(Request request) {
         try {
             appCore.handleRequest(request);
+            System.out.println(request.isSuccess());
             return new ResponseEntity<>(gson.toJson(request), headers, HttpStatus.OK);
         } catch (NoSuchRequestException e) {
             e.printStackTrace();

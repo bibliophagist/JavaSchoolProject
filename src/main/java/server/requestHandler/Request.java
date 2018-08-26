@@ -6,7 +6,7 @@ public class Request {
     private RequestError reqError = RequestError.NO_ERROR;
     private final String username;
     private final String password;
-	private boolean success=false;
+    private boolean success = true;
     private String accTitle;
     private int money = 0;
     private String reqMessage = "Success";
