@@ -36,8 +36,7 @@ Register = Class.extend({
                         let request = JSON.parse(data);
                         console.log(request);
                         if (request.success === true) {
-                            newEngine.username=login;
-                            document.getElementById("loginedInfo").innerHTML = "Login: <b>" + login + "</b>";
+                            newEngine.setCookie("login",login);
                             window.location.href = "index.html";
                         }
                         else {

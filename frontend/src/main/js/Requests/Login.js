@@ -21,7 +21,6 @@ Login = Class.extend({
                 console.log(request);
                 if (request.success === true) {
                     newEngine.setCookie("login",login);
-                    console.log(newEngine.username);
                     window.location.href = "index.html";
                 }
                 else {
