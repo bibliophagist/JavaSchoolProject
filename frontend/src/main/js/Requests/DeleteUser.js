@@ -22,7 +22,7 @@ DeleteUser = Class.extend({
                     document.getElementById("ModalTitle").innerHTML="Delete User";
                     document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
-                    setTimeout(window.location.href = "index.html", 4000);
+                    setTimeout(newEngine.unload(), 4000);
                 }
                 else {
                     document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";
