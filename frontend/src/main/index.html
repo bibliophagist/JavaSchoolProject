@@ -1,84 +1,161 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>TeamSevenBank</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>Off Canvas Template for Bootstrap</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/core.js"></script>
-    <script type="text/javascript" src="js/Login.js"></script>
-    <script type="text/javascript" src="js/Register.js"></script>
-    <script type="text/javascript" src="js/SignOut.js"></script>
-    <script type="text/javascript" src="js/ServerProxy.js"></script>
-    <script type="text/javascript" src="js/Engine.js"></script>
-    <script type="text/javascript" src="js/InputEngine.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
 </head>
-<body onload="newEngine.load()" id="body">
 
+<body onload="newEngine.load();" id="body">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" id="loginInfo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<div id="loginModal" class="modal">
-        <span onclick="document.getElementById('loginModal').style.display='none';
-                       document.getElementById('body').style.overflow='auto';" class="close" title="Close Modal">x</span>
-    <form class="modal-content animate" style="background-color: #efe9db">
-
-        <div class="container">
-            <label><b>Username</b></label>
-            <input id="loginInput" type="text" placeholder="Enter Username" name="uname" required>
-
-            <label><b>Password</b></label>
-            <input id="loginPassword" type="password" placeholder="Enter Password" name="psw" required>
-            <p id="loginError" style="color: red; size: 14px; display: none; "></p>
-            <div class="container" style="background-color:#dcd6c6; width: auto">
-                <button type="button" onclick="var login = new Login; login.login();" class="loginbtn">Login</button>
-                <button type="button" onclick="document.getElementById('loginModal').style.display='none'" class="cancelbtn">Cancel</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<div id="registerModal" class="modal">
-      <span onclick="document.getElementById('registerModal').style.display='none';
-                     document.getElementById('body').style.overflow='auto';" class="close" title="Close Modal">x</span>
-    <form class="modal-content animate" style="background-color: #efe9db">
-        <div class="container">
-            <label><b>Login</b></label>
-            <input id="registerLoginInput" type="text" placeholder="Enter Login" name="login" required>
-
-            <label><b>Password</b></label>
-            <input id="registerPasswordInput" type="password" placeholder="Enter Password" name="psw" required>
-
-            <label><b>Repeat Password</b></label>
-            <input id="registerPasswordRepeatInput"type="password" placeholder="Repeat Password" name="psw-repeat" required>
-
-            <p id="registerRule" style = "size: 14px;"><b>Username and password should be between 5 and 50 symbols</b></p>
-            <p id="registerError" style = "size: 14px; color: red; display: none;"><b>Passwords should match</b></p>
-
-            <div class="container" style="background-color:#dcd6c6; width: auto">
-                <button type="button" onclick="document.getElementById('registerModal').style.display='none'" class="cancelbtn">Cancel</button>
-                <button type="button" onclick="var register = new Register; register.register();" class="loginbtn">Sign Up</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<script type="text/javascript" src="js/CloseIfOutside.js"></script>
-
-<div class="navbar">
-    <button id = "loginButton" onclick="document.getElementById('loginModal').style.display='block';
-                                            document.getElementById('body').style.overflow = 'hidden';" style="width:auto; margin: 10px; float: right;">Login</button>
-    <button id = "registerButton" onclick="document.getElementById('registerModal').style.display='block';
-                                            document.getElementById('body').style.overflow = 'hidden';" style="width:auto; margin: 10px; float: right;">Sign Up</button>
-    <p id="loginedInfo" class="logininfo"></p>
-    <button id = "signOut" onclick="var signOut = new SignOut; signOut.signOut();" style = "display: none;" class="signoutbtn">Sign out</button>
-</div>
-<div class="container">
-    <div class="page-header">
-        <h1>JSSB</h1>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Info</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <button type="button" onclick="let signOut=new SignOut;signOut.signOut();"
+                class="btn btn-outline-success my-2 my-sm-0">
+            Sign Out
+        </button>
     </div>
-</div>
+</nav>
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Hello, world!</h1>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+                jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+                unique.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col">
+                <h6>Money Transfer</h6>
+                <form>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="accountInput"
+                                   placeholder="Account for transfer">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="moneyAmountInput"
+                                   placeholder="Money amount">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="list-group">
+                    <button type="button" class="list-group-item list-group-item-action"
+                            onclick="let checkBalance=new CheckBalance; checkBalance.checkBalance();">
+                        Check Balance
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action"
+                            onclick="let createAccount=new CreateAccount; createAccount.createAccount();">
+                        Create Account
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action"
+                            onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">
+                        Delete Account
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action"
+                            onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">
+                        Delete User
+                    </button>
+                    <button type="button" onclick="Test();" class="list-group-item list-group-item-action">
+                        Test button
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="Modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="ModalMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+    </div> <!-- /container -->
+
+</main>
+
+<footer class="container">
+    <p>© Team Seven Bank 2018</p>
+</footer>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/core.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/forIndex.js"></script>
+<script src="js/Engine.js"></script>
+<script src="js/Requests/CheckBalance.js"></script>
+<script src="js/FileForTests.js"></script>
+<script src="js/Requests/MoneyTransfer.js"></script>
+<script src="js/Requests/CreateAccount.js"></script>
+<script src="js/Requests/DeleteAccount.js"></script>
+<script src="js/Requests/DeleteUser.js"></script>
+<script src="js/SignOut.js"></script>
 </body>
 </html>
