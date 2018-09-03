@@ -62,9 +62,11 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="loginInputEmail" class="sr-only">Email address</label>
-                                        <input type="email" class="form-control" id="loginInputEmail"
-                                               aria-describedby="emailHelp" placeholder="Enter email">
+                                        <label for="loginInputLogin" class="sr-only">Login</label>
+                                        <input type="email" class="form-control" id="loginInputLogin"
+                                               placeholder="Enter login"
+                                               pattern="[0-9]{10}" title="Username should only contain 10 digits 0-9"
+                                               required>
                                     </div>
                                     <div class="form-group">
                                         <label for="loginInputPassword" class="sr-only">Password</label>
@@ -96,17 +98,14 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="registerInputEmail" class="sr-only">Email address</label>
-                                        <input type="email" class="form-control" id="registerInputEmail"
-                                               aria-describedby="emailHelp" placeholder="Enter email">
-                                        <small class="form-text text-muted">We'll never share your email with anyone
+                                        <label for="registerInputLogin" class="sr-only">login</label>
+                                        <input type="text" class="form-control" id="registerInputLogin"
+                                               placeholder="Enter login"
+                                               pattern="[0-9]{10}" title="Username should only contain 10 digits 0-9"
+                                               required>
+                                        <small class="form-text text-muted">We'll never share your data with anyone
                                             else.
                                         </small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="registerInputPassport" class="sr-only">Passport number</label>
-                                        <input type="text" id="registerInputPassport" class="form-control"
-                                               placeholder="Passport number" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="registerInputPassword" class="sr-only">Password</label>

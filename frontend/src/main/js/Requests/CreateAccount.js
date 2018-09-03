@@ -1,12 +1,14 @@
 CreateAccount = Class.extend({
     createAccount: function () {
-        let login = document
-            .getElementById("accountInput")
-            .value;
+        let login = newEngine.getCookie("login");
+        let account = document.getElementById("accountInput").value;
+        let accountType = document.getElementById("accountType").value;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
-                "login": login
+                "login": login,
+                "account": account,
+                "accountType": accountType
             },
             dataType: 'text',
             type: 'POST',
@@ -15,7 +17,7 @@ CreateAccount = Class.extend({
                 let request = JSON.parse(data);
                 console.log(request);
                 if (request.success === true) {
-                    document.getElementById("ModalTitle").innerHTML="Create Account";
+                    document.getElementById("ModalTitle").innerHTML = "Create Account";
                     document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
                 }

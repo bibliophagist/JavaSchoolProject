@@ -73,14 +73,33 @@
                 <form>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="accountInput"
+                            <input type="text" class="form-control" id="moneyTransferUserInput"
+                                   placeholder="User for transfer" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="moneyTransferAccountInput"
                                    placeholder="Account for transfer">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="moneyAmountInput"
-                                   placeholder="Money amount">
+                            <input type="text" class="form-control" id="moneyTransferBankInput"
+                                   placeholder="Bank for transfer (or empty if our Bank)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="moneyTransferMoneyAmountInput"
+                                   placeholder="Money amount" pattern="[0-9]"
+                                   title="Should only contain digits 0-9" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="moneyTransferPasswordInput"
+                                   placeholder="Password" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -96,21 +115,114 @@
                             onclick="let checkBalance=new CheckBalance; checkBalance.checkBalance();">
                         Check Balance
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let createAccount=new CreateAccount; createAccount.createAccount();">
+                    <button type="button" data-target="#createAccount" data-toggle="modal"
+                            class="list-group-item list-group-item-action">
                         Create Account
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">
+                    <button type="button" class="list-group-item list-group-item-action" data-toggle="modal"
+                            data-target="#deleteAccount">
                         Delete Account
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">
+                    <button type="button" class="list-group-item list-group-item-action" data-toggle="modal"
+                            data-target="#deleteUser">
                         Delete User
                     </button>
                     <button type="button" onclick="Test();" class="list-group-item list-group-item-action">
                         Test button
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="createAccount" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createAccountTitle">Enter account name and type (optional)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputAccountName"
+                                       placeholder="Account name">
+                            </div>
+                            <div class="form-group">
+                                <label for="accountType">Chose account type</label>
+                                <select multiple class="form-control" id="accountType">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn"
+                                onclick="let createAccount=new CreateAccount; createAccount.createAccount();">Submit
+                        </button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="deleteAccount" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteAccountTitle">Enter account name and your password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="deleteAccountName"
+                                       placeholder="Account name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="deleteAccountPassword"
+                                       placeholder="Password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn"
+                                onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">Submit
+                        </button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="deleteUser" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteUserTitle">You user account will be deleted!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="deleteUserPassword"
+                                       placeholder="Password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn"
+                                onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">Submit
+                        </button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>

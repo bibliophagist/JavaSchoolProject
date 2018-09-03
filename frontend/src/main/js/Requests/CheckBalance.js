@@ -1,9 +1,7 @@
 CheckBalance = Class.extend({
 
     checkBalance: function () {
-        let login = document
-            .getElementById("accountInput")
-            .value;
+        let login = newEngine.getCookie("login");
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
@@ -16,7 +14,7 @@ CheckBalance = Class.extend({
                 let request = JSON.parse(data);
                 console.log(request);
                 if (request.success === true) {
-                    document.getElementById("ModalTitle").innerHTML="Current balance";
+                    document.getElementById("ModalTitle").innerHTML = "Current balance";
                     document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
                 }

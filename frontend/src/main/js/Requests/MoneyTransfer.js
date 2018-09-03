@@ -1,19 +1,21 @@
 MoneyTransfer = Class.extend({
 
     moneyTransfer: function () {
-        let account = document
-            .getElementById("accountInput")
-            .value;
-        let moneyAmount = document
-            .getElementById("moneyAmountInput")
-            .value;
+        //TODO проверка на ввод имени другого банка
+        let login =newEngine.getCookie("login");
+        let user = document.getElementById("moneyTransferUserInput").value;
+        let account = document.getElementById("moneyTransferAccountInput").value;
+        let bank = document.getElementById("moneyTransferBankInput").value;
+        let moneyAmount = document.getElementById("moneyTransferMoneyAmountInput").value;
+        let password = document.getElementById("moneyTransferPasswordInput").value;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
+                "user": user,
                 "account": account,
                 "moneyAmount": moneyAmount,
-                "login": "",
-                "password": ""
+                "login": login,
+                "password": password
             },
             dataType: 'text',
             type: 'POST',

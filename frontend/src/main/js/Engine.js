@@ -3,9 +3,9 @@ Engine = Class.extend({
     bankServerUrl: "localhost:8080",
 
     load: function () {
-        if ((this.getCookie("login")===undefined) || (this.getCookie("login")===null)) {
+        /*if ((this.getCookie("login")===undefined) || (this.getCookie("login")===null)) {
             window.location.href = "index_welcomePage.html";
-        }
+        }*/
         document.getElementById("loginInfo").innerHTML="Login: " + newEngine.getCookie("login");
     },
 

@@ -1,11 +1,7 @@
 DeleteUser = Class.extend({
     deleteUser: function () {
-        let login = document
-            .getElementById("loginInput")
-            .value;
-        let password = document
-            .getElementById("passwordInput")
-            .value;
+        let login = newEngine.getCookie("login");
+        let password = document.getElementById("passwordInput").value;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
@@ -19,7 +15,7 @@ DeleteUser = Class.extend({
                 let request = JSON.parse(data);
                 console.log(request);
                 if (request.success === true) {
-                    document.getElementById("ModalTitle").innerHTML="Delete User";
+                    document.getElementById("ModalTitle").innerHTML = "Delete User";
                     document.getElementById("ModalMessage").innerHTML = request.reqMessage;
                     $('#Modal').modal('show');
                     setTimeout(newEngine.unload(), 4000);

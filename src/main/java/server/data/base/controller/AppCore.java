@@ -1,7 +1,7 @@
-package server.dataBaseController;
+package server.data.base.controller;
 
-import server.requestHandler.Request;
-import server.requestHandler.RequestError;
+import server.connection.service.Request;
+import server.connection.service.RequestError;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

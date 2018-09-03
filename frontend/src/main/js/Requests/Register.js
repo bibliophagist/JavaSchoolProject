@@ -1,10 +1,7 @@
 Register = Class.extend({
-    login: "",
-    password: "",
-
     register: function () {
         let login = document
-            .getElementById("registerInputEmail")
+            .getElementById("registerInputLogin")
             .value;
         let password = document
             .getElementById("registerInputPassword")
@@ -12,9 +9,6 @@ Register = Class.extend({
         let passwordRepeat = document
             .getElementById("registerInputPasswordRepeat")
             .value;
-       /* let passport = document
-            .getElementById("registerInputPassport")
-            .value;*/
         if ((password.length > 49) || (password.length < 1) || (login.length > 49) || (login.length < 1)) {
             document.getElementById("registerRule").style.color = "red";
             document.getElementById("registerInputEmail").value="";

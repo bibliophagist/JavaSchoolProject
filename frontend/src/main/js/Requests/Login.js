@@ -2,7 +2,7 @@ Login = Class.extend({
 
     login: function () {
         let login = document
-            .getElementById("loginInputEmail")
+            .getElementById("loginInputLogin")
             .value;
         let password = document
             .getElementById("loginInputPassword")
