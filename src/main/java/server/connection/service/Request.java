@@ -29,6 +29,14 @@ public class Request {
         this.accTitle=accTitle;
     }
 
+    public Request(RequestType reqType, String username, String accTitle, String moneyAmount, String password) {
+        this.reqType = reqType;
+        this.username = username;
+        this.password = password;
+        this.accTitle=accTitle;
+        this.money=Integer.decode(moneyAmount);
+    }
+
     public boolean isSuccess() {
         return success;
     }

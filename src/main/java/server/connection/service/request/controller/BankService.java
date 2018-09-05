@@ -1,5 +1,6 @@
 package server.connection.service.request.controller;
 
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import server.connection.service.Request;
 import server.connection.service.RequestType;
 
+import java.util.Objects;
+
 @Controller
 @CrossOrigin
 public class BankService {
+    private final String bankName = "";
+    private final Gson gson = new Gson();
+    private ForeignBankRequest foreignBankRequest = new ForeignBankRequest();
 
     @RequestMapping(
             path = "moneyTransfer",
@@ -24,15 +30,20 @@ public class BankService {
                                                 @RequestParam("moneyAmount") String moneyAmount,
                                                 @RequestParam("login") String login,
                                                 @RequestParam("password") String password) {
-        //TODO talk and make moneyTransfer
-        String uri = "";
-        long account_id = Long.getLong(account);
-
-        return new RequestHandler(new Request(RequestType.DECREASE_BALANCE, login, password)).getResponseEntity();
+        if (Objects.equals(bank, bankName)) {
+            RequestHandler requestHandler = new RequestHandler();
+            String stringBuilder = gson.toJson(new Request(RequestType.INCREASE_BALANCE, user, account,
+                    moneyAmount, password)) +
+                    gson.toJson(new Request(RequestType.DECREASE_BALANCE, login,
+                            account, moneyAmount, password));
+            return requestHandler.multipleRequestHandler(stringBuilder);
+        } else {
+            return foreignBankRequest.sendRequest(bank, user, moneyAmount);
+        }
     }
 
     @RequestMapping(
-            path = "moneyTransfer",
+            path = bankName,
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
@@ -42,9 +53,7 @@ public class BankService {
                                                 @RequestParam("moneyAmount") String moneyAmount,
                                                 @RequestParam("login") String login,
                                                 @RequestParam("password") String password) {
-        //TODO talk and make moneyTransfer and remove null
-        Request requestForDecrease = new Request(RequestType.DECREASE_BALANCE, login, password);
-        Request requestForIncrease = new Request(RequestType.INCREASE_BALANCE, null, null);
+        //TODO talk with other teams
         return null;
     }
 
