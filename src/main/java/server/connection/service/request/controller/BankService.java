@@ -14,7 +14,7 @@ import java.util.Objects;
 @Controller
 @CrossOrigin
 public class BankService {
-    private final String bankName = "";
+    private static final String ourBankName = "";
     private final Gson gson = new Gson();
     private ForeignBankRequest foreignBankRequest = new ForeignBankRequest();
 
@@ -24,26 +24,26 @@ public class BankService {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> moneyTransfer(@RequestParam("bank") String bank,
+    public ResponseEntity<String> moneyTransfer(@RequestParam("bank") String bankToSend,
                                                 @RequestParam("user") String user,
                                                 @RequestParam("account") String account,
                                                 @RequestParam("moneyAmount") String moneyAmount,
                                                 @RequestParam("login") String login,
                                                 @RequestParam("password") String password) {
-        if (Objects.equals(bank, bankName)) {
+        if (Objects.equals(bankToSend, ourBankName)) {
             RequestHandler requestHandler = new RequestHandler();
-            String stringBuilder = gson.toJson(new Request(RequestType.INCREASE_BALANCE, user, account,
+            String stringOfRequests = gson.toJson(new Request(RequestType.INCREASE_BALANCE, user, account,
                     moneyAmount, password)) +
                     gson.toJson(new Request(RequestType.DECREASE_BALANCE, login,
                             account, moneyAmount, password));
-            return requestHandler.multipleRequestHandler(stringBuilder);
+            return requestHandler.multipleRequestHandler(stringOfRequests);
         } else {
-            return foreignBankRequest.sendRequest(bank, user, moneyAmount);
+            return foreignBankRequest.sendRequest(bankToSend, user, moneyAmount);
         }
     }
 
     @RequestMapping(
-            path = bankName,
+            path = ourBankName,
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )

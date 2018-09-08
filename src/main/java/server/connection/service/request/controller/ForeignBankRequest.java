@@ -25,6 +25,7 @@ public class ForeignBankRequest {
                     entity,
                     String.class);
         }
-        return  new ResponseEntity<String>("This is not working", httpHeaders, HttpStatus.BAD_REQUEST);
+        //TODO remake this
+        return  new ResponseEntity<>("This is not working", httpHeaders, HttpStatus.BAD_REQUEST);
     }
 }
