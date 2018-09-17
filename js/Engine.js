@@ -1,6 +1,6 @@
 Engine = Class.extend({
 
-    bankServerUrl: "https://teamseven-server.azurewebsites.net:8080/",
+    bankServerUrl: "teamseven-server.azurewebsites.net:8080",
 
     load: function () {
         if ((this.getCookie("login")===undefined) || (this.getCookie("login")===null)) {
