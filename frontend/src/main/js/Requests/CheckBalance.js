@@ -1,9 +1,7 @@
 CheckBalance = Class.extend({
 
     checkBalance: function () {
-        let login = document
-            .getElementById("accountInput")
-            .value;
+        let login = newEngine.getCookie("login");
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {
@@ -13,15 +11,14 @@ CheckBalance = Class.extend({
             type: 'POST',
             url: "http://" + newEngine.bankServerUrl + "/" + "checkBalance",
             success: function (data) {
-                let request = JSON.parse(data);
-                console.log(request);
-                if (request.success === true) {
-                    document.getElementById("ModalTitle").innerHTML="Current balance";
-                    document.getElementById("ModalMessage").innerHTML = request.reqMessage;
+                let response = JSON.parse(data);
+                if (response.requestSuccessful === true) {
+                    document.getElementById("ModalTitle").innerHTML = "Current balance";
+                    document.getElementById("ModalMessage").innerHTML = response.responseMessage;
                     $('#Modal').modal('show');
                 }
                 else {
-                    document.getElementById("checkBalanceError").innerHTML = "<b>" + request.reqMessage + "</b>";
+                    document.getElementById("checkBalanceError").innerHTML = "<b>" + response.responseMessage + "</b>";
                     document.getElementById("checkBalanceError").style.display = "inline";
                 }
             },

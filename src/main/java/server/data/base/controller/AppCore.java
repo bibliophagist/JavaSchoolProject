@@ -1,7 +1,8 @@
-package server.dataBaseController;
+package server.data.base.controller;
 
-import server.requestHandler.Request;
-import server.requestHandler.RequestError;
+import server.connection.service.Request;
+import server.connection.service.RequestError;
+import server.connection.service.Response;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +15,7 @@ public class AppCore {
     private final String DB_USERNAME = "root";
     private final String DB_PASSWORD = "mysql";
 
-    public void handleRequest(Request req) throws NoSuchRequestException {
+    public Response handleRequest(Request req) throws NoSuchRequestException {
         if (req == null) {
             throw new NullPointerException("Not a request");
         }
@@ -45,9 +46,6 @@ public class AppCore {
                 case CHECK_BALANCE:
                     checkBalance(conn, req);
                     break;
-                case TRANSFER_FUNDS:
-                    transferFunds(conn, req);
-                    break;
                 default:
                     throw new NoSuchRequestException("No Such Request" + req.getReqType().toString());
             }
@@ -56,19 +54,22 @@ public class AppCore {
             System.out.println("Database failure: " + e.getMessage());
             e.printStackTrace();
         }
+        return new Response();
     }
 
-    private void register(Connection conn, Request req) throws SQLException {
+    private Response register(Connection conn, Request req) throws SQLException {
         if (ServiceDB.checkUser(conn, req.getUsername())) {
             req.setReqError(RequestError.USER_EXISTS);
             req.setReqMessage("User with such nickname already exists.");
+
         } else {
             ServiceDB.addUser(conn, req.getUsername(), req.getPassword());
             ServiceDB.addAccount(conn, req.getUsername(), req.getMoney());
         }
+        return new Response();
     }
 
-    private void login(Connection conn, Request req) throws SQLException {
+    private Response login(Connection conn, Request req) throws SQLException {
         if (!ServiceDB.checkUser(conn, req.getUsername())) {
             req.setReqError(RequestError.NO_SUCH_NAME);
             req.setReqMessage("Wrong nickname.");
@@ -76,40 +77,44 @@ public class AppCore {
             req.setReqError(RequestError.WRONG_PASS);
             req.setReqMessage("Wrong password.");
         }
+        return new Response();
     }
 
-        private void createAcc(Connection conn, Request req) throws SQLException {
-            if (req.getAccTitle() == null) {
-                ServiceDB.addAccount(conn, req.getUsername(), req.getMoney());
+    private Response createAcc(Connection conn, Request req) throws SQLException {
+        if (req.getAccTitle() == null) {
+            ServiceDB.addAccount(conn, req.getUsername(), req.getMoney());
         } else {
             ServiceDB.addAccount(conn, req.getUsername(), req.getAccTitle(), req.getMoney());
         }
+        return new Response();
     }
 
-    private void removeAcc(Connection conn, Request req) throws SQLException {
+    private Response removeAcc(Connection conn, Request req) throws SQLException {
         if (ServiceDB.getNumOfAccounts(conn, req.getUsername()) == 1) {
             req.setReqError(RequestError.LAST_ACCOUNT);
             req.setReqMessage("Can't delete account. Reason: it is the last one.");
         } else {
             ServiceDB.removeAccount(conn, req.getAccTitle());
         }
+        return new Response();
     }
 
-    private void removeUser(Connection conn, Request req) throws SQLException {
+    private Response removeUser(Connection conn, Request req) throws SQLException {
         if (ServiceDB.checkUser(conn, req.getUsername())) {
             ServiceDB.removeUser(conn, req.getUsername());
         } else {
             req.setReqError(RequestError.USER_DOES_NOT_EXIST);
             req.setReqMessage("Can't delete user. Reason: such user already doesn't exist.");
         }
+        return new Response();
     }
 
-    private void checkBalance(Connection conn, Request req) {
-
+    private Response checkBalance(Connection conn, Request req) {
+        return new Response();
     }
 
-    private void transferFunds(Connection conn, Request req) {
-
+    private Response transferFunds(Connection conn, Request req) {
+        return new Response();
     }
 
 }

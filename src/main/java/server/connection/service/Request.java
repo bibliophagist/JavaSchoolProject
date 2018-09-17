@@ -1,20 +1,40 @@
-package server.requestHandler;
+package server.connection.service;
 
 public class Request {
 
     private final RequestType reqType;
     private RequestError reqError = RequestError.NO_ERROR;
     private final String username;
-    private final String password;
+    private String password;
     private boolean success = true;
     private String accTitle;
     private int money = 0;
     private String reqMessage = "Success";
 
+    public Request(RequestType reqType, String username) {
+        this.reqType = reqType;
+        this.username = username;
+    }
+
     public Request(RequestType reqType, String username, String password) {
         this.reqType = reqType;
         this.username = username;
         this.password = password;
+    }
+
+    public Request(RequestType reqType, String username, String accTitle, String password) {
+        this.reqType = reqType;
+        this.username = username;
+        this.password = password;
+        this.accTitle=accTitle;
+    }
+
+    public Request(RequestType reqType, String username, String accTitle, String moneyAmount, String password) {
+        this.reqType = reqType;
+        this.username = username;
+        this.password = password;
+        this.accTitle=accTitle;
+        this.money=Integer.decode(moneyAmount);
     }
 
     public boolean isSuccess() {

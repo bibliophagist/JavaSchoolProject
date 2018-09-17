@@ -57,35 +57,116 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1 class="display-3">Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a
-                jumbotron and three supporting pieces of content. Use it as a starting point to create something more
-                unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+            <div class="row">
+                <div class="col">
+                    <h1 class="display-3">Hello, world!</h1>
+                    <p>This is main page for online bank. Below you can find all available functions. <br> One of the
+                        most
+                        important function is to withdraw money. To do this, use the following field.</p>
+                    <div class="form">
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="WithdrawMoneyAmount"
+                                       placeholder="Money amount">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="WithdrawMoneyAccount"
+                                       placeholder="Account to withdraw (optional)">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="WithdrawMoneyPassword"
+                                       placeholder="Enter your password" required>
+                            </div>
+                            <div class="col-sm-auto">
+                                <button type="button"
+                                        onclick="let withdrawMoney = new WithdrawMoney; withdrawMoney.withdrawMoney();"
+                                        class="btn btn-primary">
+                                    Get money
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p>
+                        <br>
+                        After that you will receive a unique code. Use it to get cash at any ATM of our bank (If you can
+                        find
+                        one).
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form mt-origin">
+                        <p>
+                            You can deposit money with form below.
+                        </p>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="DepositMoneyAmount"
+                                       placeholder="Money amount">
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="DepositMoneyAccount"
+                                       placeholder="Account to deposit (optional)">
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="DepositMoneyPassword"
+                                       placeholder="Enter your password" required>
+                            </div>
+                            <div class="col-sm-auto">
+                                <button type="button"
+                                        onclick="let depositMoney = new DepositMoney; depositMoney.depositMoney();"
+                                        class="btn btn-primary">
+                                    Deposit money
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="container">
-        <!-- Example row of columns -->
         <div class="row">
             <div class="col">
                 <h6>Money Transfer</h6>
                 <form>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="accountInput"
-                                   placeholder="Account for transfer">
+                            <input type="text" class="form-control" id="moneyTransferUserInput"
+                                   placeholder="User for transfer (or empty if you want money for yourself)">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="moneyAmountInput"
-                                   placeholder="Money amount">
+                            <input type="text" class="form-control" id="moneyTransferAccountInput"
+                                   placeholder="Account for transfer (or empty for default account)">
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <input type="text" class="form-control" id="moneyTransferBankInput"
+                                   placeholder="Bank for transfer (or empty for our Bank)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="moneyTransferMoneyAmountInput"
+                                   placeholder="Money amount" pattern="[0-9]"
+                                   title="Should only contain digits 0-9" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="moneyTransferPasswordInput"
+                                   placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <button type="button"
+                                    onclick="let moneyTransfer=new MoneyTransfer; moneyTransfer.moneyTransfer();"
+                                    class="btn btn-primary">Send
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -96,21 +177,114 @@
                             onclick="let checkBalance=new CheckBalance; checkBalance.checkBalance();">
                         Check Balance
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let createAccount=new CreateAccount; createAccount.createAccount();">
+                    <button type="button" data-target="#createAccount" data-toggle="modal"
+                            class="list-group-item list-group-item-action">
                         Create Account
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">
+                    <button type="button" class="list-group-item list-group-item-action" data-toggle="modal"
+                            data-target="#deleteAccount">
                         Delete Account
                     </button>
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">
+                    <button type="button" class="list-group-item list-group-item-action" data-toggle="modal"
+                            data-target="#deleteUser">
                         Delete User
                     </button>
                     <button type="button" onclick="Test();" class="list-group-item list-group-item-action">
                         Test button
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="createAccount" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createAccountTitle">Enter account name and type (optional)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="CreateAccountName"
+                                       placeholder="Account name">
+                            </div>
+                            <div class="form-group">
+                                <label for="CreateAccountType">Chose account type</label>
+                                <select multiple class="form-control" id="CreateAccountType">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn"
+                                onclick="let createAccount=new CreateAccount; createAccount.createAccount();">Submit
+                        </button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="deleteAccount" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteAccountTitle">Enter account name and your password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="deleteAccountName"
+                                       placeholder="Account name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="deleteAccountPassword"
+                                       placeholder="Password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn"
+                                onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">Submit
+                        </button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="deleteUser" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteUserTitle">You user account will be deleted!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="deleteUserPassword"
+                                       placeholder="Password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn"
+                                onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">Submit
+                        </button>
+                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -133,7 +307,6 @@
                 </div>
             </div>
         </div>
-
         <hr>
     </div> <!-- /container -->
 
@@ -157,5 +330,7 @@
 <script src="js/Requests/DeleteAccount.js"></script>
 <script src="js/Requests/DeleteUser.js"></script>
 <script src="js/SignOut.js"></script>
+<script src="js/Requests/WithdrawMoney.js"></script>
+<script src="js/Requests/DepositMoney.js"></script>
 </body>
 </html>

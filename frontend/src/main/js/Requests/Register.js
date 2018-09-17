@@ -1,10 +1,7 @@
 Register = Class.extend({
-    login: "",
-    password: "",
-
     register: function () {
         let login = document
-            .getElementById("registerInputEmail")
+            .getElementById("registerInputLogin")
             .value;
         let password = document
             .getElementById("registerInputPassword")
@@ -12,14 +9,8 @@ Register = Class.extend({
         let passwordRepeat = document
             .getElementById("registerInputPasswordRepeat")
             .value;
-       /* let passport = document
-            .getElementById("registerInputPassport")
-            .value;*/
         if ((password.length > 49) || (password.length < 1) || (login.length > 49) || (login.length < 1)) {
             document.getElementById("registerRule").style.color = "red";
-            document.getElementById("registerInputEmail").value="";
-            document.getElementById("registerInputPassword").value = "";
-            document.getElementById("registerInputPasswordRepeat").value = "";
         }
         else {
             if (password === passwordRepeat) {
@@ -33,37 +24,27 @@ Register = Class.extend({
                     type: 'POST',
                     url: "http://" + newEngine.bankServerUrl + "/" + "register",
                     success: function (data) {
-                        let request = JSON.parse(data);
-                        console.log(request);
-                        if (request.success === true) {
+                        let response = JSON.parse(data);
+                        if (response.requestSuccessful === true) {
                             newEngine.setCookie("login",login);
                             window.location.href = "index.html";
                         }
                         else {
-                            document.getElementById("registerError").innerHTML = "<b>" + request.reqMessage + "</b>";
+                            document.getElementById("registerError").innerHTML = "<b>" + response.responseMessage + "</b>";
                             document.getElementById("registerRule").style.color = "black";
                             document.getElementById("registerError").style.display = "inline";
-                            document.getElementById("registerInputEmail").value="";
-                            document.getElementById("registerInputPassword").value = "";
-                            document.getElementById("registerInputPasswordRepeat").value = "";
                         }
                     },
                     error: function (data) {
                         document.getElementById("registerError").innerHTML = "<b>" + data.responseText + "</b>";
                         document.getElementById("registerRule").style.color = "black";
                         document.getElementById("registerError").style.display = "inline";
-                        document.getElementById("registerInputEmail").value="";
-                        document.getElementById("registerInputPassword").value = "";
-                        document.getElementById("registerInputPasswordRepeat").value = "";
                     }
                 })
             }
             else {
                 document.getElementById("registerError").innerHTML = "<b>Passwords don't match</b>";
                 document.getElementById("registerError").style.display = "inline";
-                document.getElementById("registerInputEmail").value="";
-                document.getElementById("registerInputPassword").value = "";
-                document.getElementById("registerInputPasswordRepeat").value = "";
             }
         }
     }
