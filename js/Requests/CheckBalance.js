@@ -9,7 +9,7 @@ CheckBalance = Class.extend({
             },
             dataType: 'text',
             type: 'POST',
-            url: "http://" + newEngine.bankServerUrl + "/" + "checkBalance",
+            url: "https://" + newEngine.bankServerUrl + "/" + "checkBalance",
             success: function (data) {
                 let response = JSON.parse(data);
                 if (response.requestSuccessful === true) {
