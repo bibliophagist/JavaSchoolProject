@@ -11,7 +11,7 @@ Login = Class.extend({
             },
             dataType: 'text',
             type: 'POST',
-            url: "https://" + newEngine.bankServerUrl + "/" + "login",
+            url: "http://" + newEngine.bankServerUrl + "/" + "login",
             success: function (data) {
                 let response = JSON.parse(data);
                 if (response.requestSuccessful === true) {
