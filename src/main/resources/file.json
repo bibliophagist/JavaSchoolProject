@@ -1,0 +1,32 @@
+[
+  {
+    "requestId": 0,
+    "reqType": "LOGIN",
+    "reqError": "NO_ERROR",
+    "username": "login1",
+    "password": "password1",
+    "success": true,
+    "money": 0,
+    "reqMessage": "Success"
+  },
+  {
+    "requestId": 1,
+    "reqType": "LOGIN",
+    "reqError": "NO_ERROR",
+    "username": "login1",
+    "password": "password1",
+    "success": true,
+    "money": 0,
+    "reqMessage": "Success"
+  },
+  {
+    "requestId": 2,
+    "reqType": "LOGIN",
+    "reqError": "NO_ERROR",
+    "username": "login1",
+    "password": "password1",
+    "success": true,
+    "money": 0,
+    "reqMessage": "Success"
+  }
+]

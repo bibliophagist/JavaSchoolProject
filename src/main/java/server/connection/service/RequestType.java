@@ -7,8 +7,7 @@ public enum RequestType {
     REMOVE_USER,
     CREATE_ACC,
     REMOVE_ACC,
-    INCREASE_BALANCE,
-    DECREASE_BALANCE,
-    GET_USER,
+    ADD_FUNDS,
+    REMOVE_FUNDS,
     CHECK_BALANCE
 }

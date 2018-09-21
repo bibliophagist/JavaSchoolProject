@@ -24,7 +24,7 @@ public class AccountService {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> login(@RequestParam("login") String login,
                                         @RequestParam("password") String password) {
-        Request request = new Request(RequestType.LOGIN, login, password);
+        Request request = new Request(RequestType.LOGIN, login, null, password);
         LOGGER.info("Request for {} from user {} with id {}", RequestType.LOGIN, login, request.getRequestId());
         return new RequestHandler(request).getResponseEntity();
     }
@@ -38,7 +38,7 @@ public class AccountService {
     public ResponseEntity<String> removeAcc(@RequestParam("login") String login,
                                             @RequestParam("account") String account,
                                             @RequestParam("password") String password) {
-        Request request = new Request(RequestType.REMOVE_ACC, login, account, password);
+        Request request = new Request(RequestType.REMOVE_ACC, login, null, password, account);
         LOGGER.info("Request for {} from user {} with id {}", RequestType.REMOVE_ACC, login, request.getRequestId());
         return new RequestHandler(request).getResponseEntity();
     }
@@ -66,7 +66,7 @@ public class AccountService {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> removeUSer(@RequestParam("login") String login,
                                              @RequestParam("password") String password) {
-        Request request = new Request(RequestType.REMOVE_USER, login, password);
+        Request request = new Request(RequestType.REMOVE_USER, login, null, password);
         LOGGER.info("Request for {} from user {} with id {}", RequestType.REMOVE_USER, login, request.getRequestId());
         return new RequestHandler(request).getResponseEntity();
     }
@@ -79,7 +79,7 @@ public class AccountService {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> register(@RequestParam("login") String login,
                                            @RequestParam("password") String password) {
-        Request request = new Request(RequestType.REGISTER, login, password);
+        Request request = new Request(RequestType.REGISTER, login, null, password);
         LOGGER.info("Request for {} from user {} with id {}", RequestType.REGISTER, login, request.getRequestId());
         return new RequestHandler(request).getResponseEntity();
     }
