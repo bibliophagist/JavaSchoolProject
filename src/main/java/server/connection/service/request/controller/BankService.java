@@ -19,8 +19,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +44,15 @@ public class BankService {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> moneyTransfer(@RequestParam("bank") String bankToSend,
-                                                @RequestParam("user") String user,
-                                                @RequestParam("account") String account,
+    public ResponseEntity<String> moneyTransfer(@RequestParam("account") String account,
+                                                @RequestParam("withdrawAccount") String withdrawAccount,
                                                 @RequestParam("moneyAmount") String moneyAmount,
                                                 @RequestParam("login") String login,
                                                 @RequestParam("password") String password) {
-        LOGGER.info("Requests for moneyTransfer from user {}  to {} in bank {}", login, user, bankToSend);
+        String bankToSend = account.substring(0, 2);
+        LOGGER.info("Requests for moneyTransfer from user {}  to {} in bank {}", login, account, bankToSend);
         if (Objects.equals(bankToSend, ourBankName)) {
-            Request requestInc = new Request(RequestType.ADD_FUNDS, user, account,
+            Request requestInc = new Request(RequestType.ADD_FUNDS, null, account,
                     Long.decode(moneyAmount));
             LOGGER.debug("Request for {} from user {} with id {}", RequestType.ADD_FUNDS, login,
                     requestInc.getRequestId());
@@ -69,7 +69,7 @@ public class BankService {
                     Long.decode(moneyAmount));
             LOGGER.debug("Request for {} from user {} with id {}", RequestType.FOREIGN_BANK, login,
                     request.getRequestId());
-            return foreignBankRequest.sendRequest(bankToSend, user, request);
+            return foreignBankRequest.sendRequest(bankToSend, withdrawAccount, request);
         }
     }
 
@@ -79,11 +79,10 @@ public class BankService {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> moneyTransfer(@RequestParam("body") String body) {
-        RequestBody requestBody = gson.fromJson(body, RequestBody.class);
+    public ResponseEntity<String> moneyTransfer(@RequestBody BodyForRequest bodyForRequest) {
         Request increaseBalanceRequest = new Request(RequestType.ADD_FUNDS, null,
-                requestBody.getToAccount(), requestBody.getAmount());
-        ResponseEntity<String> responseEntity = new RequestHandler(increaseBalanceRequest).getResponseEntity();
+                bodyForRequest.getToAccount(), bodyForRequest.getAmount());
+        ResponseEntity<String> responseEntity = new RequestHandler().handleRequest(increaseBalanceRequest);
         //TODO change responseEntity for return to other banks
         return responseEntity;
     }
@@ -97,7 +96,37 @@ public class BankService {
     public ResponseEntity<String> checkBalance(@RequestParam("login") String login) {
         Request request = new Request(RequestType.CHECK_BALANCE, login);
         LOGGER.info("Request for {} from user {} with id {}", RequestType.CHECK_BALANCE, login, request.getRequestId());
-        return new RequestHandler(request).getResponseEntity();
+        return new RequestHandler().handleRequest(request);
+    }
+
+    @RequestMapping(
+            path = "depositMoney",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> depositMoney(@RequestParam("login") String login,
+                                               @RequestParam("moneyAmount") String money,
+                                               @RequestParam("account") String account,
+                                               @RequestParam("password") String password) {
+        Request request = new Request(RequestType.ADD_FUNDS, login, null, password, account, Long.decode(money));
+        LOGGER.info("Request for {} from user {} with id {}", RequestType.ADD_FUNDS, login, request.getRequestId());
+        return new RequestHandler().handleRequest(request);
+    }
+
+    @RequestMapping(
+            path = "withdrawMoney",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> withdrawMoney(@RequestParam("login") String login,
+                                                @RequestParam("moneyAmount") String money,
+                                                @RequestParam("account") String account,
+                                                @RequestParam("password") String password) {
+        Request request = new Request(RequestType.REMOVE_FUNDS, login, null, password, account, Long.decode(money));
+        LOGGER.info("Request for {} from user {} with id {}", RequestType.REMOVE_FUNDS, login, request.getRequestId());
+        return new RequestHandler().handleRequest(request);
     }
 
     @RequestMapping(
@@ -126,12 +155,11 @@ public class BankService {
     )
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> handleJson(@RequestParam("login") String login, @RequestParam("file") File file) {
-        try {
+        try (JsonReader reader = new JsonReader(new FileReader(file))) {
             LOGGER.info("Request with json file was received from user {}", login);
-            JsonReader reader = new JsonReader(new FileReader(file));
             List<Request> requests = gson.fromJson(reader, requestType);
             return requestHandler.multipleRequestHandler(requests);
-        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
             LOGGER.debug("Request with json file was received, but file wasn't open", ex);
             return requestHandler.errorResponseEntity(ex);
         }

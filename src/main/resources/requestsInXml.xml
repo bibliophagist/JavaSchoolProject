@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<requests>
+    <request>
+        <requestId>1</requestId>
+        <userID>login1</userID>
+        <reqType>LOGIN</reqType>
+        <username>test</username>
+        <password>password1</password>
+        <accTitle>test</accTitle>
+        <moneyToMove>1</moneyToMove>
+    </request>
+    <request>
+        <requestId>2</requestId>
+        <userID>login1</userID>
+        <reqType>LOGIN</reqType>
+        <username>test</username>
+        <password>password1</password>
+        <accTitle>test</accTitle>
+        <moneyToMove>1</moneyToMove>
+    </request>
+    <request>
+        <requestId>3</requestId>
+        <userID>login1</userID>
+        <reqType>LOGIN</reqType>
+        <username>test</username>
+        <password>password1</password>
+        <accTitle>test</accTitle>
+        <moneyToMove>1</moneyToMove>
+    </request>
+</requests>

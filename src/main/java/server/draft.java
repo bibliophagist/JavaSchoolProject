@@ -17,6 +17,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class draft {
     private static final Gson gson = new GsonBuilder().create();
@@ -25,9 +26,9 @@ public class draft {
     }.getType();
 
     private static List<Request> requestList() {
-        Request request = new Request(RequestType.LOGIN, "login1", null, "password1");
-        Request request1 = new Request(RequestType.LOGIN, "login1", null, "password1");
-        Request request2 = new Request(RequestType.LOGIN, "login1", null, "password1");
+        Request request = new Request(RequestType.LOGIN, "login1", "test", "password1", "test", 1);
+        Request request1 = new Request(RequestType.LOGIN, "login1", "test", "password1", "test", 1);
+        Request request2 = new Request(RequestType.LOGIN, "login1", "test", "password1", "test", 1);
         List<Request> target = new LinkedList<Request>();
         target.add(request);
         target.add(request1);
@@ -40,20 +41,23 @@ public class draft {
         return json;
     }
 
-    public static void main(String[] args) {
-        try {
-            JsonReader reader = new JsonReader(new FileReader("src/main/java/resources/file.json"));
-            Type listType = new TypeToken<List<Request>>() {
-            }.getType();
+    private static void readJsonFile() {
+        try (Writer writer = new FileWriter("src/main/resources/requestsInJson.json")) {
+            gson.toJson(requestList(), listType, writer);
+        } catch (IOException ex) {
+            LOGGER.debug("You can not write to a file src/main/resources/requestsInJson.json", ex);
+        }
+        try (JsonReader reader = new JsonReader(new FileReader("src/main/resources/requestsInJson.json"))) {
             List<Request> requests = gson.fromJson(reader, listType);
             System.out.println(requests);
-            String json = gson.toJson(requests, listType);
-            System.out.println(json);
-        } catch (FileNotFoundException ex) {
+            String json1 = gson.toJson(requests, listType);
+            System.out.println(json1);
+        } catch (IOException ex) {
             LOGGER.debug("Request with json file was received, but file wasn't open", ex);
         }
+    }
 
-
+    private static void readXmlFile() {
         Request request123 = new Request(RequestType.LOGIN, "login1", "password1");
 
         try {
@@ -68,15 +72,28 @@ public class draft {
 
             Requests requests = new Requests(requestList());
             marshaller.marshal(requests, System.out);
-            marshaller.marshal(requests, new FileOutputStream("src/main/java/resources/requestsInXml.xml"));
+            marshaller.marshal(requests, new FileOutputStream("src/main/resources/requestsInXml.xml"));
 
-            Requests requests1 = (Requests) unmarshaller.unmarshal(new FileInputStream("src/main/java/resources/requestsInXml.xml"));
+            Requests requests1 = (Requests) unmarshaller.unmarshal(new FileInputStream("src/main/resources/requestsInXml.xml"));
 
             String json = gson.toJson(requests1.getRequests(), listType);
             System.out.println(json);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+
+        Type type = new TypeToken<Map<String, String>>() {
+        }.getType();
+        Map<String, String> myMap = gson.fromJson("{'k1':'apple','k2':'orange'}", type);
+
+        for (String s : myMap.keySet()) {
+            System.out.println(myMap.get(s));
+        }
+        readXmlFile();
+        readJsonFile();
 
     }
 }

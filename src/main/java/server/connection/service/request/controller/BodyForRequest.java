@@ -1,7 +1,6 @@
 package server.connection.service.request.controller;
 
-public class RequestBody {
-    private final String id;
+public class BodyForRequest {
 
     private final String amount;
     private final String fromAccount;
@@ -9,8 +8,7 @@ public class RequestBody {
     private final String currency;
     private final String comment;
 
-    public RequestBody(String id, String amount, String fromAccount, String toAccount, String currency, String comment) {
-        this.id = id;
+    public BodyForRequest(String amount, String fromAccount, String toAccount, String currency, String comment) {
         this.amount = amount;
         this.fromAccount = fromAccount;
         this.toAccount = toAccount;
