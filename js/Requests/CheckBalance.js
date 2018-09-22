@@ -18,8 +18,9 @@ CheckBalance = Class.extend({
                     $('#Modal').modal('show');
                 }
                 else {
-                    document.getElementById("checkBalanceError").innerHTML = "<b>" + response.responseMessage + "</b>";
-                    document.getElementById("checkBalanceError").style.display = "inline";
+                    document.getElementById("ModalTitle").innerHTML = "ERROR";
+                    document.getElementById("ModalMessage").innerHTML = response.responseMessage;
+                    $('#Modal').modal('show');
                 }
             },
             error: function (data) {

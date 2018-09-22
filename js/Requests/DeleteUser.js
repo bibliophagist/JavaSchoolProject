@@ -1,7 +1,7 @@
 DeleteUser = Class.extend({
     deleteUser: function () {
         let login = newEngine.getCookie("login");
-        let password = document.getElementById("passwordInput").value;
+        let password = document.getElementById("deleteUserPassword").value;
         $.ajax({
             contentType: 'application/x-www-form-urlencoded',
             data: {

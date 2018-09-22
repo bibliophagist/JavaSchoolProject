@@ -1,3 +1,3 @@
 function Test() {
-    console.log(newEngine.getCookie("login"));
+    console.log(document.getElementById("fileInput").value);
 }

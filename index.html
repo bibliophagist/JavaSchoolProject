@@ -67,11 +67,11 @@
                         <div class="form-row align-items-center">
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" id="WithdrawMoneyAmount"
-                                       placeholder="Money amount">
+                                       placeholder="Money amount" required>
                             </div>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" id="WithdrawMoneyAccount"
-                                       placeholder="Account to withdraw (optional)">
+                                       placeholder="Account to withdraw" required>
                             </div>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" id="WithdrawMoneyPassword"
@@ -101,11 +101,11 @@
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="DepositMoneyAmount"
-                                       placeholder="Money amount">
+                                       placeholder="Money amount" required>
                             </div>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="DepositMoneyAccount"
-                                       placeholder="Account to deposit (optional)">
+                                       placeholder="Account to deposit" required>
                             </div>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="DepositMoneyPassword"
@@ -132,20 +132,14 @@
                 <form>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="moneyTransferUserInput"
-                                   placeholder="User for transfer (or empty if you want money for yourself)">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-10">
                             <input type="text" class="form-control" id="moneyTransferAccountInput"
-                                   placeholder="Account for transfer (or empty for default account)">
+                                   placeholder="Account for transfer" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="moneyTransferBankInput"
-                                   placeholder="Bank for transfer (or empty for our Bank)">
+                            <input type="text" class="form-control" id="moneyTransferWithdrawAccountInput"
+                                   placeholder="Account for withdraw" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -189,9 +183,17 @@
                             data-target="#deleteUser">
                         Delete User
                     </button>
-                    <button type="button" onclick="Test();" class="list-group-item list-group-item-action">
-                        Test button
-                    </button>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" accept="application/xml, application/json"
+                                   id="fileInput">
+                            <label class="custom-file-label" for="fileInput">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span type="button" class="btn btn-outline-secondary" id="sendFile"
+                                  onclick="Test();">Upload</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,6 +210,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
+                                <label for="CreateAccountName">CreateAccountName</label>
                                 <input type="text" class="form-control" id="CreateAccountName"
                                        placeholder="Account name">
                             </div>
@@ -254,7 +257,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn"
-                                onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">Submit
+                                onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">Submit
                         </button>
                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>
@@ -281,7 +284,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn"
-                                onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">Submit
+                                onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">Submit
                         </button>
                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                     </div>

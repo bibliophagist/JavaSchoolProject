@@ -16,11 +16,13 @@ DeleteAccount = Class.extend({
             success: function (data) {
                 let response = JSON.parse(data);
                 if (response.requestSuccessful === true) {
+                    $('#deleteAccount').modal('hide');
                     document.getElementById("ModalTitle").innerHTML = "Delete Account";
                     document.getElementById("ModalMessage").innerHTML = response.responseMessage;
                     $('#Modal').modal('show');
                 }
                 else {
+                    //TODO wrong ref
                     document.getElementById("moneyTransferError").innerHTML = "<b>" + response.responseMessage + "</b>";
                     document.getElementById("moneyTransferError").style.display = "inline";
                 }
