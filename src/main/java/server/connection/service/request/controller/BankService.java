@@ -36,7 +36,7 @@ public class BankService {
     private static final RequestHandler requestHandler = new RequestHandler();
     private static final String ourBankName = "70";
     private static final Gson gson = new GsonBuilder().create();
-    private static final ForeignBankRequest foreignBankRequest = new ForeignBankRequest();
+    private static final ForeignBank foreignBank = new ForeignBank();
 
     @RequestMapping(
             path = "moneyTransfer",
@@ -50,14 +50,15 @@ public class BankService {
                                                 @RequestParam("login") String login,
                                                 @RequestParam("password") String password) {
         String bankToSend = account.substring(0, 2);
-        LOGGER.info("Requests for moneyTransfer from user {}  to {} in bank {}", login, account, bankToSend);
+        LOGGER.info("Requests for moneyTransfer from user {} with account {} to {} in bank {}",
+                login, withdrawAccount, account, bankToSend);
         if (Objects.equals(bankToSend, ourBankName)) {
             Request requestInc = new Request(RequestType.ADD_FUNDS, null, account,
                     Long.decode(moneyAmount));
             LOGGER.debug("Request for {} from user {} with id {}", RequestType.ADD_FUNDS, login,
                     requestInc.getRequestId());
             Request requestDec = new Request(RequestType.REMOVE_FUNDS, login, null, password,
-                    account, Long.decode(moneyAmount));
+                    withdrawAccount, Long.decode(moneyAmount));
             LOGGER.debug("Request for {} from user {} with id {}", RequestType.REMOVE_FUNDS, login,
                     requestDec.getRequestId());
             List<Request> requests = new ArrayList<>();
@@ -69,7 +70,7 @@ public class BankService {
                     Long.decode(moneyAmount));
             LOGGER.debug("Request for {} from user {} with id {}", RequestType.FOREIGN_BANK, login,
                     request.getRequestId());
-            return foreignBankRequest.sendRequest(bankToSend, withdrawAccount, request);
+            return foreignBank.sendRequest(bankToSend, withdrawAccount, request);
         }
     }
 
@@ -82,9 +83,7 @@ public class BankService {
     public ResponseEntity<String> moneyTransfer(@RequestBody BodyForRequest bodyForRequest) {
         Request increaseBalanceRequest = new Request(RequestType.ADD_FUNDS, null,
                 bodyForRequest.getToAccount(), bodyForRequest.getAmount());
-        ResponseEntity<String> responseEntity = new RequestHandler().handleRequest(increaseBalanceRequest);
-        //TODO change responseEntity for return to other banks
-        return responseEntity;
+        return foreignBank.handleRequest(increaseBalanceRequest);
     }
 
     @RequestMapping(
@@ -150,13 +149,12 @@ public class BankService {
 
     @RequestMapping(
             path = "handleJson",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
+            method = RequestMethod.POST
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> handleJson(@RequestParam("login") String login, @RequestParam("file") File file) {
+    public ResponseEntity<String> handleJson(@RequestBody File file) {
         try (JsonReader reader = new JsonReader(new FileReader(file))) {
-            LOGGER.info("Request with json file was received from user {}", login);
+            LOGGER.info("Request with json file was received }");
             List<Request> requests = gson.fromJson(reader, requestType);
             return requestHandler.multipleRequestHandler(requests);
         } catch (IOException ex) {
