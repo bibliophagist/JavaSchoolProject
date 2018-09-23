@@ -23,7 +23,6 @@ public class RequestHandler {
     private final Gson gson = new GsonBuilder().create();
 
     public RequestHandler() {
-        headers.add("Access-Control-Allow-Origin", "*");
     }
 
     public ResponseEntity<String> handleRequest(Request request) {

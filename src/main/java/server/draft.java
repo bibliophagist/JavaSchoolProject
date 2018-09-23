@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import server.connection.service.Request;
 import server.connection.service.RequestType;
 import server.connection.service.Requests;
+import server.connection.service.Response;
+import server.data.base.controller.jpadb.AppCore;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -87,13 +89,10 @@ public class draft {
 
         Type type = new TypeToken<Map<String, String>>() {
         }.getType();
-        Map<String, String> myMap = gson.fromJson("{'k1':'apple','k2':'orange'}", type);
 
-        for (String s : myMap.keySet()) {
-            System.out.println(myMap.get(s));
-        }
-        readXmlFile();
-        readJsonFile();
+        Request request = new Request(RequestType.LOGIN, "1111111111", null, "1");
+        Response response = AppCore.handleRequest(request);
+        System.out.println(gson.toJson(response));
 
     }
 }

@@ -70,7 +70,7 @@ public class BankService {
                     Long.decode(moneyAmount));
             LOGGER.debug("Request for {} from user {} with id {}", RequestType.FOREIGN_BANK, login,
                     request.getRequestId());
-            return foreignBank.sendRequest(bankToSend, withdrawAccount, request);
+            return foreignBank.beforeSendingRequest(bankToSend, withdrawAccount, request);
         }
     }
 
