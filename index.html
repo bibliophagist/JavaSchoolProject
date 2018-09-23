@@ -25,19 +25,11 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Info</a>
-            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                   aria-haspopup="true" aria-expanded="false">Accounts</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a type="text" class="dropdown-item" id="#ListOfAccounts"></a>
                 </div>
             </li>
         </ul>
@@ -63,11 +55,12 @@
                     <p>This is main page for online bank. Below you can find all available functions. <br> One of the
                         most
                         important function is to withdraw money. To do this, use the following field.</p>
-                    <div class="form">
+                    <form class="form" id="withdrawForm">
                         <div class="form-row align-items-center">
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" id="WithdrawMoneyAmount"
-                                       placeholder="Money amount" required>
+                                       placeholder="Money amount" pattern="^[ 0-9]+$"
+                                       title="Should only contain digits 0-9" required>
                             </div>
                             <div class="col-sm-2">
                                 <input type="text" class="form-control" id="WithdrawMoneyAccount"
@@ -78,14 +71,14 @@
                                        placeholder="Enter your password" required>
                             </div>
                             <div class="col-sm-auto">
-                                <button type="button"
-                                        onclick="let withdrawMoney = new WithdrawMoney; withdrawMoney.withdrawMoney();"
-                                        class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary">
                                     Get money
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    <p id="withdrawMoneyError" style="size: 14px; color: red; display: none;"><b>Passwords
+                        should match</b></p>
                     <p>
                         <br>
                         After that you will receive a unique code. Use it to get cash at any ATM of our bank (If you can
@@ -98,7 +91,7 @@
                         <p>
                             You can deposit money with form below.
                         </p>
-                        <div class="form-group row">
+                        <form id="depositMoneyForm" class="form-group row">
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="DepositMoneyAmount"
                                        placeholder="Money amount" required>
@@ -112,13 +105,11 @@
                                        placeholder="Enter your password" required>
                             </div>
                             <div class="col-sm-auto">
-                                <button type="button"
-                                        onclick="let depositMoney = new DepositMoney; depositMoney.depositMoney();"
-                                        class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary">
                                     Deposit money
                                 </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -129,7 +120,7 @@
         <div class="row">
             <div class="col">
                 <h6>Money Transfer</h6>
-                <form>
+                <form id="moneyTransferForm">
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="moneyTransferAccountInput"
@@ -145,7 +136,7 @@
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="moneyTransferMoneyAmountInput"
-                                   placeholder="Money amount" pattern="[0-9]"
+                                   placeholder="Money amount" pattern="^[ 0-9]+$"
                                    title="Should only contain digits 0-9" required>
                         </div>
                     </div>
@@ -157,9 +148,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <button type="button"
-                                    onclick="let moneyTransfer=new MoneyTransfer; moneyTransfer.moneyTransfer();"
-                                    class="btn btn-primary">Send
+                            <button type="submit" class="btn btn-primary">Send
                             </button>
                         </div>
                     </div>
@@ -183,17 +172,10 @@
                             data-target="#deleteUser">
                         Delete User
                     </button>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" accept="application/xml, application/json"
-                                   id="fileInput">
-                            <label class="custom-file-label" for="fileInput">Choose file</label>
-                        </div>
-                        <div class="input-group-append">
-                            <span type="button" class="btn btn-outline-secondary" id="sendFile"
-                                  onclick="Test();">Upload</span>
-                        </div>
-                    </div>
+                    <form id="fileForm">
+                        <input type="file" id="file" name="file"/>
+                        <input type="submit"/>
+                    </form>
                 </div>
             </div>
         </div>
@@ -207,11 +189,12 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form>
+                    <form id="createAccountForm">
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="CreateAccountName">CreateAccountName</label>
-                                <input type="text" class="form-control" id="CreateAccountName"
+                                <input type="text" class="form-control" id="CreateAccountName" pattern="^[ 0-9]+$"
+                                       title="Should only contain digits 0-9"
                                        placeholder="Account name">
                             </div>
                             <div class="form-group">
@@ -222,14 +205,13 @@
                                     <option>3</option>
                                 </select>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn"
-                                onclick="let createAccount=new CreateAccount; createAccount.createAccount();">Submit
-                        </button>
-                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn">Submit
+                            </button>
+                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -243,8 +225,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form>
+                    <form id="deleteAccountForm">
+                        <div class="modal-body">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="deleteAccountName"
                                        placeholder="Account name" required>
@@ -253,14 +235,13 @@
                                 <input type="password" class="form-control" id="deleteAccountPassword"
                                        placeholder="Password" required>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn"
-                                onclick="let deleteAccount=new DeleteAccount; deleteAccount.deleteAccount();">Submit
-                        </button>
-                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn">Submit
+                            </button>
+                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -274,20 +255,20 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form>
+                    <form id="deleteUserForm">
+                        <div class="modal-body">
                             <div class="form-group">
                                 <input type="password" class="form-control" id="deleteUserPassword"
                                        placeholder="Password" required>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn"
-                                onclick="let deleteUser=new DeleteUser; deleteUser.deleteUser();">Submit
-                        </button>
-                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                    </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn">Submit
+                            </button>
+                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -326,14 +307,15 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/forIndex.js"></script>
 <script src="js/Engine.js"></script>
-<script src="js/Requests/CheckBalance.js"></script>
+<script src="js/SignOut.js"></script>
 <script src="js/FileForTests.js"></script>
-<script src="js/Requests/MoneyTransfer.js"></script>
+<script src="js/Requests/CheckBalance.js"></script>
 <script src="js/Requests/CreateAccount.js"></script>
 <script src="js/Requests/DeleteAccount.js"></script>
 <script src="js/Requests/DeleteUser.js"></script>
-<script src="js/SignOut.js"></script>
-<script src="js/Requests/WithdrawMoney.js"></script>
 <script src="js/Requests/DepositMoney.js"></script>
+<script src="js/Requests/MoneyTransfer.js"></script>
+<script src="js/Requests/SendFile.js"></script>
+<script src="js/Requests/WithdrawMoney.js"></script>
 </body>
 </html>

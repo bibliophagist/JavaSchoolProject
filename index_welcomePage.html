@@ -59,11 +59,11 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <form>
+                            <form id="loginForm">
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="loginInputLogin" class="sr-only">Login</label>
-                                        <input type="email" class="form-control" id="loginInputLogin"
+                                        <input type="text" class="form-control" id="loginInputLogin"
                                                placeholder="Enter login"
                                                pattern="[0-9]{10}" title="Username should only contain 10 digits 0-9"
                                                required>
@@ -74,14 +74,13 @@
                                                placeholder="Password" required>
                                     </div>
                                     <p id="loginError" style="color: red; size: 14px; display: none; "></p>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" onclick="let login = new Login; login.login();"
-                                        class="btn btn-primary">Sign in
-                                </button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Sign in
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -95,8 +94,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <form>
+                            <form id="registerForm">
+                                <div class="modal-body">
                                     <div class="form-group">
                                         <label for="registerInputLogin" class="sr-only">login</label>
                                         <input type="text" class="form-control" id="registerInputLogin"
@@ -124,15 +123,13 @@
                                         should match</b></p>
 
                                     <div class="modal-footer">
-                                        <button type="button"
-                                                onclick="let register = new Register; register.register();"
-                                                class="btn btn-primary">Register
+                                        <button type="submit" class="btn btn-primary">Register
                                         </button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                         </button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
