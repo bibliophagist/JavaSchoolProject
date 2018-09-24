@@ -22,7 +22,7 @@ $('#registerForm').submit(function (e) {
                 },
                 dataType: 'text',
                 type: 'POST',
-                url: "http://" + newEngine.bankServerUrl + "/" + "register",
+                url: "https://" + newEngine.bankServerUrl + "/" + "register",
                 success: function (data) {
                     let response = JSON.parse(data);
                     if (response.requestSuccessful === true) {

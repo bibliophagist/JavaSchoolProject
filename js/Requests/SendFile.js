@@ -9,7 +9,7 @@ $('#fileForm').submit(function (e) {
     );
 
     $.ajax({
-        url: "http://" + newEngine.bankServerUrl + "/" + "handleJson",
+        url: "https://" + newEngine.bankServerUrl + "/" + "handleJson",
         data: data,
         cache: false,
         contentType: false,

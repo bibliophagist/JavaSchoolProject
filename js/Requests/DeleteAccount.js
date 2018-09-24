@@ -12,7 +12,7 @@ $('#deleteAccountForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "http://" + newEngine.bankServerUrl + "/" + "deleteAccount",
+        url: "https://" + newEngine.bankServerUrl + "/" + "deleteAccount",
         success: function (data) {
             let response = JSON.parse(data);
             $('#deleteAccount').modal('hide');

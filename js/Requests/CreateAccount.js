@@ -13,7 +13,7 @@ $('#createAccountForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "http://" + newEngine.bankServerUrl + "/" + "createAccount",
+        url: "https://" + newEngine.bankServerUrl + "/" + "createAccount",
         success: function (data) {
             let response = JSON.parse(data);
             $('#createAccount').modal('hide');

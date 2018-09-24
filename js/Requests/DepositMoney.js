@@ -15,7 +15,7 @@ $('#depositMoneyForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "http://" + newEngine.bankServerUrl + "/" + "depositMoney",
+        url: "https://" + newEngine.bankServerUrl + "/" + "depositMoney",
         success: function (data) {
             let response = JSON.parse(data);
             document.getElementById("ModalTitle").innerHTML = "Deposit Money";

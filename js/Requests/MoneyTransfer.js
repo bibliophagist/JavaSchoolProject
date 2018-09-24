@@ -17,7 +17,7 @@ $('#moneyTransferForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "http://" + newEngine.bankServerUrl + "/" + "moneyTransfer",
+        url: "https://" + newEngine.bankServerUrl + "/" + "moneyTransfer",
         success: function (data) {
             let response = JSON.parse(data);
             document.getElementById("ModalTitle").innerHTML = "Money Transfer";

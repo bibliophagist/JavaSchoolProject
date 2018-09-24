@@ -7,7 +7,7 @@ $('#checkBalanceForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "http://" + newEngine.bankServerUrl + "/" + "checkBalance",
+        url: "https://" + newEngine.bankServerUrl + "/" + "checkBalance",
         success: function (data) {
             let response = JSON.parse(data);
             document.getElementById("ModalTitle").innerHTML = "Current balance";
