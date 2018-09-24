@@ -7,6 +7,9 @@ Engine = Class.extend({
             window.location.href = "index_welcomePage.html";
         }
         document.getElementById("loginInfo").innerHTML="Login: " + newEngine.getCookie("login");
+        if (!((this.getCookie("accounts")===undefined) || (this.getCookie("accounts")===null))) {
+            document.getElementById("ListOfAccounts").innerHTML=newEngine.getCookie("accounts");
+        }
     },
 
     unload: function () {

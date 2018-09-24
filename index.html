@@ -26,10 +26,10 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" id="forAccounts" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Accounts</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a type="text" class="dropdown-item" id="#ListOfAccounts"></a>
+                <div class="dropdown-menu" aria-labelledby="forAccounts">
+                    <a type="text" class="dropdown-item" id="ListOfAccounts"></a>
                 </div>
             </li>
         </ul>
@@ -77,8 +77,6 @@
                             </div>
                         </div>
                     </form>
-                    <p id="withdrawMoneyError" style="size: 14px; color: red; display: none;"><b>Passwords
-                        should match</b></p>
                     <p>
                         <br>
                         After that you will receive a unique code. Use it to get cash at any ATM of our bank (If you can
@@ -156,8 +154,8 @@
             </div>
             <div class="col-md-4">
                 <div class="list-group">
-                    <button type="button" class="list-group-item list-group-item-action"
-                            onclick="let checkBalance=new CheckBalance; checkBalance.checkBalance();">
+                    <button type="button" data-target="#createAccount" data-toggle="modal"
+                            class="list-group-item list-group-item-action">
                         Check Balance
                     </button>
                     <button type="button" data-target="#createAccount" data-toggle="modal"
@@ -172,9 +170,35 @@
                             data-target="#deleteUser">
                         Delete User
                     </button>
-                    <form id="fileForm">
-                        <input type="file" id="file" name="file"/>
-                        <input type="submit"/>
+                    <form method="POST" enctype="multipart/form-data" id="fileForm">
+                        <input type="file" name="file"><br/>
+                        <input type="submit" value="Upload">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="checkBalance" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="checkBalanceTitle">Enter account name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="checkBalanceForm">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="checkBalanceName"
+                                       placeholder="Account name" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn">Submit
+                            </button>
+                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                        </div>
                     </form>
                 </div>
             </div>

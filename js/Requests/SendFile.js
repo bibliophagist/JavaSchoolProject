@@ -1,5 +1,6 @@
 $('#fileForm').submit(function (e) {
 
+    let login = newEngine.getCookie("login");
     let data = new FormData();
     data.append('file', $('#file')[0].files[0]);
 
@@ -7,14 +8,26 @@ $('#fileForm').submit(function (e) {
         data.get("file")
     );
 
-    /*$.ajax({
+    $.ajax({
         url: "http://" + newEngine.bankServerUrl + "/" + "handleJson",
         data: data,
-        processData: false,
+        cache: false,
         contentType: false,
+        processData: false,
+        method: 'POST',
         type: 'POST',
         success: function (data) {
-            alert(data);
+            let response = JSON.parse(data);
+            $('#createAccount').modal('hide');
+            document.getElementById("ModalTitle").innerHTML = "Create Account";
+            document.getElementById("ModalMessage").innerHTML = response.responseMessage;
+            $('#Modal').modal('show');
+        },
+        error: function (data) {
+            let response = JSON.parse(data);
+            document.getElementById("ModalTitle").innerHTML = "Create Account";
+            document.getElementById("ModalMessage").innerHTML = data;
+            $('#Modal').modal('show');
         }
-    });*/
+    });
 });

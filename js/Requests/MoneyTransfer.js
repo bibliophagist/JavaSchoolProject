@@ -5,6 +5,7 @@ $('#moneyTransferForm').submit(function (e) {
     let withdrawAccount = document.getElementById("moneyTransferWithdrawAccountInput").value;
     let moneyAmount = document.getElementById("moneyTransferMoneyAmountInput").value;
     let password = document.getElementById("moneyTransferPasswordInput").value;
+
     $.ajax({
         contentType: 'application/x-www-form-urlencoded',
         data: {
@@ -22,17 +23,11 @@ $('#moneyTransferForm').submit(function (e) {
             document.getElementById("ModalTitle").innerHTML = "Money Transfer";
             document.getElementById("ModalMessage").innerHTML = response.responseMessage;
             $('#Modal').modal('show');
-            document.getElementById("moneyTransferUserInput").value = "";
-            document.getElementById("moneyTransferAccountInput").value = "";
-            document.getElementById("moneyTransferBankInput").value = "";
         },
         error: function (data) {
             document.getElementById("ModalTitle").innerHTML = "Money Transfer";
             document.getElementById("ModalMessage").innerHTML = data;
             $('#Modal').modal('show');
-            document.getElementById("moneyTransferUserInput").value = "";
-            document.getElementById("moneyTransferAccountInput").value = "";
-            document.getElementById("moneyTransferBankInput").value = "";
         }
     });
 

@@ -2,6 +2,7 @@ $('#createAccountForm').submit(function (e) {
 
     let login = newEngine.getCookie("login");
     let account = document.getElementById("CreateAccountName").value;
+    account = "70" + account;
     let accountType = document.getElementById("CreateAccountType").value;
     $.ajax({
         contentType: 'application/x-www-form-urlencoded',
@@ -19,16 +20,12 @@ $('#createAccountForm').submit(function (e) {
             document.getElementById("ModalTitle").innerHTML = "Create Account";
             document.getElementById("ModalMessage").innerHTML = response.responseMessage;
             $('#Modal').modal('show');
-            document.getElementById("CreateAccountName").value = "";
-            document.getElementById("CreateAccountType").value = "";
         },
         error: function (data) {
             let response = JSON.parse(data);
             document.getElementById("ModalTitle").innerHTML = "Create Account";
             document.getElementById("ModalMessage").innerHTML = data;
             $('#Modal').modal('show');
-            document.getElementById("CreateAccountName").value = "";
-            document.getElementById("CreateAccountType").value = "";
         }
     });
 
