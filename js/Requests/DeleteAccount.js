@@ -18,9 +18,8 @@ $('#deleteAccountForm').submit(function (e) {
             newEngine.setCookie("accounts", response.accListString);
             $('#deleteAccount').modal('hide');
             document.getElementById("ModalTitle").innerHTML = "Delete Account";
-            document.getElementById("ModalMessage").innerHTML = response.responseMessage;
+            document.getElementById("ModalMessage").innerHTML = response.responseMessage + ". <br>  Reload for new list of accounts";
             $('#Modal').modal('show');
-
         },
         error: function (data) {
             $('#deleteAccount').modal('hide');
