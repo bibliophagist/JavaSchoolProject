@@ -6,15 +6,11 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import server.connection.service.Request;
 import server.connection.service.RequestType;
 import server.connection.service.Requests;
-import server.connection.service.Response;
 import server.connection.service.request.controller.ForeignBank;
-import server.connection.service.request.controller.ForeignBankResponse;
-import server.data.base.controller.jpadb.AppCore;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;

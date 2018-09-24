@@ -78,6 +78,7 @@ public class ForeignBank {
         }
     }
 
+/*  //For requests to our bank
     private ResponseEntity<String> responseEntityFromOurBank(UriComponentsBuilder builder) {
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
@@ -87,7 +88,7 @@ public class ForeignBank {
                 entity,
                 String.class);
         return responseEntity;
-    }
+    }*/
 
 
     public ResponseEntity<String> handleRequest(Request request) {
