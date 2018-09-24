@@ -32,7 +32,7 @@ public class Response {
 		this.requestSuccessful = successStatus;
 	}
 	
-	public String getAcclistString() {
+	public String getAccListString() {
 		return accListString;
 	}
 	

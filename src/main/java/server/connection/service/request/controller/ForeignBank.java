@@ -2,9 +2,12 @@ package server.connection.service.request.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import server.connection.service.Request;
@@ -15,16 +18,18 @@ import java.util.HashMap;
 
 public class ForeignBank {
     private static final Logger LOGGER = LoggerFactory.getLogger(ForeignBank.class);
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final ClientHttpRequestFactory requestFactory = new
+            HttpComponentsClientHttpRequestFactory(HttpClients.createDefault());
+    private final RestTemplate restTemplate = new RestTemplate(requestFactory);
     private final HttpHeaders httpHeaders = new HttpHeaders();
-    private HashMap<String, String> listOfBanks;
+    private final HashMap<String, String> listOfBanks = new HashMap<>();
     private final Gson gson = new GsonBuilder().create();
 
     public ForeignBank() {
         //TODO is it necessary or mistake?
-        httpHeaders.add("Access-Control-Allow-Origin", "*");
-        httpHeaders.add("x-api-key", "hello");
-        httpHeaders.add("content-type", "application/json;charset=UTF-8");
+        listOfBanks.put("10", "https://bankonline.azurewebsites.net/api/transfer/");
+        listOfBanks.put("20", "https://onlinebank-group2.tk/api/transfer");
+        listOfBanks.put("70", "http://localhost:8080/70");
         /*try (JsonReader reader = new JsonReader(new FileReader("src/main/resources/listOfBanks.json"))) {
             Type type = new TypeToken<Map<String, String>>() {
             }.getType();
@@ -34,37 +39,54 @@ public class ForeignBank {
         }*/
     }
 
-    public ResponseEntity<String> beforeSendingRequest(String bank, String withdrawAccount, Request request) {
+    public ResponseEntity<String> beforeSendingRequest(String bank, String account, Request request) {
         if (listOfBanks.containsKey(bank)) {
             Response response = new Response();
             LOGGER.debug("Sending request with id {} to DB controller", request.getRequestId());
-            return AppCore.handleRequestFromAnotherBank(response, request);
+            return AppCore.handleRequestFromAnotherBank(response, request, this, account, bank);
         } else {
             LOGGER.debug("Incorrect Bank to send money in Request with id {}", request.getRequestId());
             return new ResponseEntity<>("Incorrect Bank Id", httpHeaders, HttpStatus.BAD_REQUEST);
         }
     }
 
-    public ResponseEntity<String> sendRequest(Request request, Response response, String withdrawAccount, String bank) {
+    public ResponseEntity<String> sendRequest(Request request, Response response, String account, String bank) {
         if (response.isRequestSuccessful()) {
-            BodyForRequest bodyForRequest = new BodyForRequest(Long.toString(request.getMoneyToMove()), withdrawAccount,
-                    request.getAccTitle(), "RUB", "From 70 with love.");
+            BodyForRequest bodyForRequest = new BodyForRequest(Long.toString(request.getMoneyToMove()),
+                    request.getAccTitle(), account, "RUB", "From 70 with love.");
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(listOfBanks.get(bank))
-                    .query(gson.toJson(bodyForRequest));
-            HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
-            ResponseEntity<String> responseEntity = restTemplate.exchange(builder.build().encode().toUri(),
-                    HttpMethod.POST,
-                    entity,
-                    String.class);
-            ForeignBankResponse foreignBankResponse = gson.fromJson(responseEntity.getBody(), ForeignBankResponse.class);
-            LOGGER.info("Request with id {} was sent to another bank, response - successful: {}, message {} ",
-                    request.getRequestId(), foreignBankResponse.isRequestSuccessful(), response.getResponseMessage());
-            AppCore.setWhiteFlag(foreignBankResponse.isRequestSuccessful());
+                    .queryParam("body", gson.toJson(bodyForRequest));
+            LOGGER.debug("Request with id {} sending to foreign bank with body {}", request.getRequestId(),
+                    builder.build().encode().toUri());
+
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+            HttpEntity<?> entity = new HttpEntity<>(gson.toJson(bodyForRequest), httpHeaders);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(listOfBanks.get(bank),
+                    HttpMethod.POST, entity, String.class);
+
+            ForeignBankResponse foreignBankResponse = new ForeignBankResponse();
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+                foreignBankResponse.setRequestSuccessful(true);
+                foreignBankResponse.setResponseMessage("Money was transferred successfully");
+            }
+            LOGGER.info("Request with id {} was sent to another bank, response - {}",
+                    request.getRequestId(), foreignBankResponse);
             return new ResponseEntity<>(gson.toJson(foreignBankResponse), httpHeaders, HttpStatus.OK);
         } else {
             LOGGER.info("Request with id {} was handled successfully: {}", request.getRequestId(), response.isRequestSuccessful());
             return new ResponseEntity<>(gson.toJson(response), httpHeaders, HttpStatus.OK);
         }
+    }
+
+    private ResponseEntity<String> responseEntityFromOurBank(UriComponentsBuilder builder) {
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                builder.build().encode().toUri(),
+                HttpMethod.POST,
+                entity,
+                String.class);
+        return responseEntity;
     }
 
 

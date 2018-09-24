@@ -1,7 +1,6 @@
 package server.connection.service;
 
 public enum RequestType {
-    FOREIGN_BANK,
     REGISTER,
     LOGIN,
     REMOVE_USER,

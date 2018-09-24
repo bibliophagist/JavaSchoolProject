@@ -13,7 +13,7 @@
 			<property name="javax.persistence.jdbc.password" value="sbersql" /> -->
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://db4free.net:3306/sberdata" />
 			<property name="javax.persistence.jdbc.user" value="senex626" />
-			<property name="javax.persistence.jdbc.password" value="sberdatasql" />			
+			<property name="javax.persistence.jdbc.password" value="sberdatasql" />
 		</properties>
 	</persistence-unit>
 </persistence>

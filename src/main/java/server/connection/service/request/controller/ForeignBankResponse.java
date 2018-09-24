@@ -2,29 +2,33 @@ package server.connection.service.request.controller;
 
 public class ForeignBankResponse {
 
-    private boolean error = true;
-    private String message = "Success";
+    private boolean success = false;
+    private String responseMessage = "Initial response message";
 
-    public ForeignBankResponse(boolean error, String message) {
-        this.error = error;
-        this.message = message;
+    public ForeignBankResponse() {
+
+    }
+
+    public ForeignBankResponse(boolean success, String message) {
+        this.success = success;
+        this.responseMessage = message;
     }
 
 
     public String getResponseMessage() {
-        return message;
+        return responseMessage;
     }
 
     public void setResponseMessage(String msg) {
-        this.message = msg;
+        this.responseMessage = msg;
     }
 
     public boolean isRequestSuccessful() {
-        return error;
+        return success;
     }
 
     public void setRequestSuccessful(boolean successStatus) {
-        this.error = successStatus;
+        this.success = successStatus;
     }
 }
 

@@ -83,6 +83,14 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.2.11.Final</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

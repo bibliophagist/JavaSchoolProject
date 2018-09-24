@@ -66,21 +66,23 @@ public class BankService {
             requests.add(requestDec);
             return requestHandler.multipleRequestHandler(requests);
         } else {
-            Request request = new Request(RequestType.FOREIGN_BANK, login, null, password, account,
+            Request request = new Request(RequestType.REMOVE_FUNDS, login, null, password, withdrawAccount,
                     Long.decode(moneyAmount));
-            LOGGER.debug("Request for {} from user {} with id {}", RequestType.FOREIGN_BANK, login,
+            LOGGER.debug("Request for {} from user {} with id {}", RequestType.REMOVE_FUNDS, login,
                     request.getRequestId());
-            return foreignBank.beforeSendingRequest(bankToSend, withdrawAccount, request);
+            return foreignBank.beforeSendingRequest(bankToSend, account, request);
         }
     }
 
     @RequestMapping(
             path = ourBankName,
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> moneyTransfer(@RequestBody BodyForRequest bodyForRequest) {
+    public ResponseEntity<String> moneyTransfer(@RequestParam("body") String request) {
+        LOGGER.info("Request from another bank with body {}", request);
+        BodyForRequest bodyForRequest = gson.fromJson(request, BodyForRequest.class);
         Request increaseBalanceRequest = new Request(RequestType.ADD_FUNDS, null,
                 bodyForRequest.getToAccount(), bodyForRequest.getAmount());
         return foreignBank.handleRequest(increaseBalanceRequest);
@@ -92,8 +94,8 @@ public class BankService {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE
     )
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> checkBalance(@RequestParam("login") String login) {
-        Request request = new Request(RequestType.CHECK_BALANCE, login);
+    public ResponseEntity<String> checkBalance(@RequestParam("login") String login, @RequestParam String account) {
+        Request request = new Request(RequestType.CHECK_BALANCE, login, account);
         LOGGER.info("Request for {} from user {} with id {}", RequestType.CHECK_BALANCE, login, request.getRequestId());
         return new RequestHandler().handleRequest(request);
     }

@@ -25,7 +25,7 @@ public class AccountService {
     public ResponseEntity<String> login(@RequestParam("login") String login,
                                         @RequestParam("password") String password) {
         Request request = new Request(RequestType.LOGIN, login, null, password);
-        LOGGER.info("Request for {} from user {} with id {}", RequestType.LOGIN, login, request.getRequestId());
+        LOGGER.info("Request for {} from user {}  with password {}; id {}", RequestType.LOGIN, login, password, request.getRequestId());
         return new RequestHandler().handleRequest(request);
     }
 
@@ -39,7 +39,7 @@ public class AccountService {
                                             @RequestParam("account") String account,
                                             @RequestParam("password") String password) {
         Request request = new Request(RequestType.REMOVE_ACC, login, null, password, account);
-        LOGGER.info("Request for {} from user {} with id {}", RequestType.REMOVE_ACC, login, request.getRequestId());
+        LOGGER.info("Request for {} from user {} id {}", RequestType.REMOVE_ACC, login, request.getRequestId());
         return new RequestHandler().handleRequest(request);
     }
 
