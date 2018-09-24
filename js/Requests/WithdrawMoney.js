@@ -15,7 +15,7 @@ $('#withdrawForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "https://" + newEngine.bankServerUrl + "/" + "withdrawMoney",
+        url: newEngine.bankServerUrl + "/" + "withdrawMoney",
         success: function (data) {
             let response = JSON.parse(data);
             document.getElementById("ModalTitle").innerHTML = "Withdraw Money";

@@ -9,7 +9,7 @@ $('#deleteUserForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "https://" + newEngine.bankServerUrl + "/" + "deleteUser",
+        url: newEngine.bankServerUrl + "/" + "deleteUser",
         success: function (data) {
             let response = JSON.parse(data);
             if (response.requestSuccessful === true) {

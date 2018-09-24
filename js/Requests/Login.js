@@ -10,7 +10,7 @@ $('#loginForm').submit(function (e) {
         },
         dataType: 'text',
         type: 'POST',
-        url: "https://" + newEngine.bankServerUrl + "/" + "login",
+        url: newEngine.bankServerUrl + "/" + "login",
         success: function (data) {
             let response = JSON.parse(data);
             if (response.requestSuccessful === true) {
