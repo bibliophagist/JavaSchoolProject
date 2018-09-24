@@ -1,7 +1,6 @@
 package server.data.base.controller.jpadb;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +12,7 @@ import server.data.base.controller.model.Account;
 import server.connection.service.Request;
 import server.connection.service.Response;
 import server.connection.service.RequestType;
+import server.data.base.controller.NoSuchRequestException;;
 
 public class AppCore {
 
@@ -35,17 +35,6 @@ public class AppCore {
 
 	static {
 		emFactoryObj = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	}
-
-	static class NoSuchRequestException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		public NoSuchRequestException() {
-		}
-
-		public NoSuchRequestException(String message) {
-			super(message);
-		}
 	}
 	
 	//TODO check if RequestList handler works correctly: rollback in particular.
@@ -114,7 +103,9 @@ public class AppCore {
 		emFactoryObj.getCache().evict(Account.class);
 		if(response.isRequestSuccessful() && response.getUserID() != null) {
 			em.getTransaction().begin();
-			response.setAccList(getUserByID(em, response.getUserID()).getAccountList());
+			List<Account> accList = getUserByID(em, response.getUserID()).getAccountList();
+			String accListString = accListToString(accList);
+			response.setAccListString(accListString);
 			em.getTransaction().commit();
 			em.clear();
 		}
@@ -202,6 +193,18 @@ public class AppCore {
 		return response;
 	}
 
+	public static String accListToString(List<Account> accList) { 
+		String accListString = "";
+		if(accList != null && accList.size() > 0) {
+			for(Account a: accList) {
+				accListString = accListString + a.getTitle() + " ,";
+			}
+			accListString = accListString.substring(0, accListString.length()-2);
+		}
+		
+		return accListString; 
+	}
+	
 	private static boolean userExists(EntityManager em, String userID) {
 		if(userID == null) {
 			return false;
@@ -426,42 +429,42 @@ public class AppCore {
 	public static void main(String[] args) throws NoSuchRequestException, InterruptedException {
 		
 		//Request req11 = new Request(RequestType.REGISTER, "0123456789", "Peter", "SpiderVan");
-		Request req12 = new Request(RequestType.REGISTER, "0123456789", "Peter", "SpiderVan", "parker_account", 200);
+		//Request req12 = new Request(RequestType.REGISTER, "0123456789", "Peter", "SpiderVan", "parker_account", 200);
 		//Request req13 = new Request(RequestType.REGISTER, "0123456789", "Peter", "SpiderVan", "parker_account");
 		//Request req14 = new Request(RequestType.REGISTER, "0123456789", "Peter", "SpiderVan", 100);
 		//Request req15 = new Request(RequestType.REGISTER, "4567890123", null, "whatever");
 		
-		Request req21 = new Request(RequestType.LOGIN, "0123456789", "Peter", "SpiderVan"); // correct log in
-		Request req22 = new Request(RequestType.LOGIN, "1023456789", "Peter", "SpiderVan"); // wrong ID
-		Request req23 = new Request(RequestType.LOGIN, "0123456789", "Peter1", "SpiderVan"); // wrong Name
-		Request req24 = new Request(RequestType.LOGIN, "0123456789", "Peter", "SpiderMan"); // wrong Pass
-		Request req25 = new Request(RequestType.LOGIN, "4567890123", null, "whatever"); // correct log in
+		//Request req21 = new Request(RequestType.LOGIN, "0123456789", "Peter", "SpiderVan"); // correct log in
+		//Request req22 = new Request(RequestType.LOGIN, "1023456789", "Peter", "SpiderVan"); // wrong ID
+		//Request req23 = new Request(RequestType.LOGIN, "0123456789", "Peter1", "SpiderVan"); // wrong Name
+		//Request req24 = new Request(RequestType.LOGIN, "0123456789", "Peter", "SpiderMan"); // wrong Pass
+		//Request req25 = new Request(RequestType.LOGIN, "4567890123", null, "whatever"); // correct log in
 
 		
-		Request req31 = new Request(RequestType.CREATE_ACC, "0123456789");
-		Request req32 = new Request(RequestType.CREATE_ACC, "0123456789", "parker_account2");
-		Request req33 = new Request(RequestType.CREATE_ACC, "0123456789", 100);
-		Request req34 = new Request(RequestType.CREATE_ACC, "0123456789", "parker_account3", 100);
-		Request req35 = new Request(RequestType.CREATE_ACC, "0123456789", "parker_account2"); //same title
-		Request req36 = new Request(RequestType.CREATE_ACC, "0123456789", "70parker_account2"); //same title
+		//Request req31 = new Request(RequestType.CREATE_ACC, "0123456789");
+		//Request req32 = new Request(RequestType.CREATE_ACC, "0123456789", "parker_account2");
+		//Request req33 = new Request(RequestType.CREATE_ACC, "0123456789", 100);
+		//Request req34 = new Request(RequestType.CREATE_ACC, "0123456789", "parker_account3", 100);
+		//Request req35 = new Request(RequestType.CREATE_ACC, "0123456789", "parker_account2"); //same title
+		//Request req36 = new Request(RequestType.CREATE_ACC, "0123456789", "70parker_account2"); //same title
 		
-		Request req41 = new Request(RequestType.REMOVE_ACC, "1023456789", "Peter_0"); //wrong userID
-		Request req42 = new Request(RequestType.REMOVE_ACC, "0123456789", "Peter_0"); //no such account
-		Request req43 = new Request(RequestType.REMOVE_ACC, "0123456789"); //no such account
-		Request req44 = new Request(RequestType.REMOVE_ACC, "0123456789", "parker_account");
-		Request req45 = new Request(RequestType.REMOVE_ACC, "0123456789", "70parker_account2");
+		//Request req41 = new Request(RequestType.REMOVE_ACC, "1023456789", "Peter_0"); //wrong userID
+		//Request req42 = new Request(RequestType.REMOVE_ACC, "0123456789", "Peter_0"); //no such account
+		//Request req43 = new Request(RequestType.REMOVE_ACC, "0123456789"); //no such account
+		//Request req44 = new Request(RequestType.REMOVE_ACC, "0123456789", "parker_account");
+		//Request req45 = new Request(RequestType.REMOVE_ACC, "0123456789", "70parker_account2");
 		
-		Request req51 = new Request(RequestType.CHECK_BALANCE, "1023456789", "parker_account3"); //wrong userID
-		Request req52 = new Request(RequestType.CHECK_BALANCE, "0123456789", "parker_account2"); //no such account (delete it first)
-		Request req53 = new Request(RequestType.CHECK_BALANCE, "0123456789", "parker_account3");
-		Request req54 = new Request(RequestType.CHECK_BALANCE, "0123456789", "parker_account2"); //(create it first)
+		//Request req51 = new Request(RequestType.CHECK_BALANCE, "1023456789", "parker_account3"); //wrong userID
+		//Request req52 = new Request(RequestType.CHECK_BALANCE, "0123456789", "parker_account2"); //no such account (delete it first)
+		//Request req53 = new Request(RequestType.CHECK_BALANCE, "0123456789", "parker_account3");
+		//Request req54 = new Request(RequestType.CHECK_BALANCE, "0123456789", "parker_account2"); //(create it first)
 		
-		Request req61 = new Request(RequestType.ADD_FUNDS, "0123456789", "parker_account5"); //no such account
-		Request req62 = new Request(RequestType.ADD_FUNDS, null, "parker_account2", 50);
-		Request req63 = new Request(RequestType.REMOVE_FUNDS, "0123456789", "parker_account3", 50);
-		Request req64 = new Request(RequestType.REMOVE_FUNDS, null, "parker_account2", 50);//not enough funds
+		//Request req61 = new Request(RequestType.ADD_FUNDS, "0123456789", "parker_account5"); //no such account
+		//Request req62 = new Request(RequestType.ADD_FUNDS, null, "parker_account2", 50);
+		//Request req63 = new Request(RequestType.REMOVE_FUNDS, "0123456789", "parker_account3", 50);
+		//Request req64 = new Request(RequestType.REMOVE_FUNDS, null, "parker_account2", 50);//not enough funds
 		
-		Request req7 = new Request(RequestType.REMOVE_USER, "0123456789"); 
+		//Request req7 = new Request(RequestType.REMOVE_USER, "0123456789"); 
 		
 		/*
 		ArrayList<Request> reqList = new ArrayList<>();
@@ -485,9 +488,9 @@ public class AppCore {
 		System.out.println(resp.getResponseMessage());
 		//*/
 		
-		Request req111 = new Request(RequestType.LOGIN, "1111111111", null, "1");
+		//Request req111 = new Request(RequestType.LOGIN, "1111111111", null, "1");
 		//Request req111 = new Request(RequestType.REGISTER, "1111111111", null, "1");
-		//*
+		/*
 		Response resp2 = handleRequest(req111);
 		System.out.println(resp2.getResponseMessage());
 		//*/

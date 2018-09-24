@@ -1,53 +1,50 @@
 package server.connection.service;
 
-import server.data.base.controller.model.Account;
-
-import java.util.List;
-
 public class Response {
 
-    private String responseMessage = "Initial message";
-    private boolean requestSuccessful = false;
-    private String userID;
-    private List<Account> accList;
+	private String responseMessage = "Initial message";
+	private boolean requestSuccessful = false;
+	private String userID;
+	//private List<Account> accList;
+	private String accListString;
+	
+	public Response() {
+	}
+	
+	public Response(String msg, boolean successStatus) {
+		this.responseMessage = msg;
+		this.requestSuccessful = successStatus;
+	}
 
-    public Response() {
-    }
+	public String getResponseMessage() {
+		return responseMessage;
+	}
+	
+	public void setResponseMessage(String msg) {
+		this.responseMessage = msg;
+	}
 
-    public Response(String msg, boolean successStatus) {
-        this.responseMessage = msg;
-        this.requestSuccessful = successStatus;
-    }
-
-    public String getResponseMessage() {
-        return responseMessage;
-    }
-
-    public void setResponseMessage(String msg) {
-        this.responseMessage = msg;
-    }
-
-    public boolean isRequestSuccessful() {
-        return requestSuccessful;
-    }
-
-    public void setRequestSuccessful(boolean successStatus) {
-        this.requestSuccessful = successStatus;
-    }
-
-    public List<Account> getAcclist() {
-        return accList;
-    }
-
-    public void setAccList(List<Account> accList) {
-        this.accList = accList;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
+	public boolean isRequestSuccessful() {
+		return requestSuccessful;
+	}
+	
+	public void setRequestSuccessful(boolean successStatus) {
+		this.requestSuccessful = successStatus;
+	}
+	
+	public String getAcclistString() {
+		return accListString;
+	}
+	
+	public void setAccListString(String accListString) {
+		this.accListString = accListString;
+	}
+	
+	public String getUserID() {
+		return userID;
+	}
+	
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
 }
