@@ -1,9 +1,11 @@
 $('#checkBalanceForm').submit(function (e) {
     let login = newEngine.getCookie("login");
+    let account = document.getElementById("checkBalanceName").value;
     $.ajax({
         contentType: 'application/x-www-form-urlencoded',
         data: {
             "login": login,
+            "account": account
         },
         dataType: 'text',
         type: 'POST',

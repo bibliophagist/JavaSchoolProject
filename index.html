@@ -92,7 +92,8 @@
                         <form id="depositMoneyForm" class="form-group row">
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="DepositMoneyAmount"
-                                       placeholder="Money amount" required>
+                                       placeholder="Money amount" pattern="^[ 0-9]+$"
+                                       title="Should only contain digits 0-9"  required>
                             </div>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="DepositMoneyAccount"
