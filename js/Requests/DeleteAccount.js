@@ -15,6 +15,7 @@ $('#deleteAccountForm').submit(function (e) {
         url: newEngine.bankServerUrl + "/" + "deleteAccount",
         success: function (data) {
             let response = JSON.parse(data);
+            newEngine.setCookie("accounts", response.accListString);
             $('#deleteAccount').modal('hide');
             document.getElementById("ModalTitle").innerHTML = "Delete Account";
             document.getElementById("ModalMessage").innerHTML = response.responseMessage;

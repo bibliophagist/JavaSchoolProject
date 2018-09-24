@@ -27,6 +27,7 @@ $('#registerForm').submit(function (e) {
                     let response = JSON.parse(data);
                     if (response.requestSuccessful === true) {
                         newEngine.setCookie("login", login);
+                        newEngine.setCookie("accounts", response.accListString);
                         window.location.href = "index.html";
                     }
                     else {

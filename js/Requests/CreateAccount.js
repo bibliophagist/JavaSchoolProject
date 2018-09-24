@@ -16,6 +16,7 @@ $('#createAccountForm').submit(function (e) {
         url: newEngine.bankServerUrl + "/" + "createAccount",
         success: function (data) {
             let response = JSON.parse(data);
+            newEngine.setCookie("accounts", response.accListString);
             $('#createAccount').modal('hide');
             document.getElementById("ModalTitle").innerHTML = "Create Account";
             document.getElementById("ModalMessage").innerHTML = response.responseMessage;
